@@ -98,7 +98,7 @@ const HyphenateText = async(text, callback, setMessage) => {
         //   const closestToLeft =
         //   const closestToRight =
         //
-        // !chosen.find(c => Math.abs(item.index - c.index) <= config.secondary_splits_if_subword_is_at_minimum_X_length)
+        // !chosen.find(c => Math.abs(item.index - c.index) <= config.min_subword_length_for_secondary_splits)
       })
 
       let out = ''
