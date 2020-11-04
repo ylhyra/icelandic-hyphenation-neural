@@ -1,0 +1,14 @@
+*.bz2
+*.csv
+*.gz
+*.h5
+*.log
+*.map
+*.npz
+*.pb
+*.pyc
+*.txt
+*.txt
+*.xml
+**/logs/**
+node_modules/*

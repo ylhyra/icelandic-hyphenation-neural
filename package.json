@@ -1,0 +1,56 @@
+{
+  "name": "icelandic_hyphenation",
+  "version": "0.1.0",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "build": "export NODE_ENV=production && webpack --config scripts/webpack/browser.js",
+    "start": "webpack serve --config scripts/webpack/browser.js --color",
+    "serve": "cd build && serve",
+    "server": "export NODE_PATH=. && nodemon -r esm ./website/server/index.js -e js --ignore styles/build.css"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^2.6.0",
+    "body-parser": "^1.19.0",
+    "clipboard-copy": "^3.1.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "lodash": "^4.17.20",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "regenerator-runtime": "^0.13.7",
+    "webpack": "^5.2.0",
+    "webpack-cli": "^4.1.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  }
+}

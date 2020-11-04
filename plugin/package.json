@@ -1,0 +1,12 @@
+{
+  "name": "icelandic_hyphenation",
+  "version": "0.1.0",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^2.6.0",
+    "lodash": "^4.17.20"
+  }
+}
