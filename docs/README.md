@@ -8,23 +8,64 @@ Use it online [here](http://hyphenation.ylhyra.is/).
 
 This program adds [soft hyphens](https://en.wikipedia.org/wiki/Soft_hyphen) to text. It can run in the browser or Node.js with the use of [TensorFlow.js](https://www.tensorflow.org/js). The program is 700kB gzipped. Initialization takes about 2 seconds but the hyphenation itself is quick. Hyphenation should be applied to text during a pre-processing step rather than being applied by end-users.
 
-
-
-
+**In the browser**
 
 ```html
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ylhyra/icelandic-hyphenation-neural/build/core.js"></script>
+
 <script type="text/javascript">
+
+/* Example 1: Hyphenate text */
 IcelandicHyphenation
-  .HyphenateText('virkilega langur texti')
+  .HyphenateText('forsætisráðherra')
   .then(text => {
     console.log(text);
   })
+
+/* Example 2: Add hyphenation to a DOM element */
+var element = document.getElementById('root')
+IcelandicHyphenation.HyphenateElement(element)
+
 </script>
 ```
 
+**In Node.js**
 
-## Usage notes
+```js
+const IcelandicHyphenation = require('icelandic-hyphenation-neural')
+
+const text = await IcelandicHyphenation.HyphenateText('forsætisráðherra')
+```
+
+### Configuration
+
+- `min_word_length`
+  - Only hyphenate words that are this long.
+  - Default: 6.
+- `min_left_letters`
+  - Hyphenation 
+  - Default:  3.
+- `min_right_letters`  
+  - Default: 3.
+- `min_subword_length`
+  - Default: 3.
+- `secondary_splits_if_subword_is_at_minimum_X_length`
+  - Default:
+- `model_base_url`
+  - Default: 
+
+
+
+
+```js
+IcelandicHyphenation.config({
+
+})
+```
+
+
+
+### Usage notes
 
 * [Preventing hyphens from being copied](https://github.com/egilll/do-not-copy-hyphens#readme)
 
