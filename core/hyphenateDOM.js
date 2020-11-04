@@ -1,17 +1,17 @@
-import HyphenateText, { SOFT_HYPHEN, SOFT_HYPHEN_REGEX } from './text'
+import HyphenateText, { SOFT_HYPHEN, SOFT_HYPHEN_REGEX } from './hyphenateText'
 
 /**
  * Applies hyphenation to the text of a DOM element.
  * If no arguments are passed, is applied to the entire document.
  */
-const HyphenateDOM = (element) => {
+const HyphenateDOM = (element, options) => {
   if (!element) {
     element = document.body
   }
 
   const run = async() => {
     // console.log(element)
-    const text = (await HyphenateText(GetText(element)))
+    const text = await HyphenateText(GetText(element), options)
     ApplyText(element, text)
 
 

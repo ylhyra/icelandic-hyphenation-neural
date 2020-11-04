@@ -12,6 +12,14 @@ const defaultConfig = {
 
 export default defaultConfig
 
+export const GetOptions = (options) => {
+  if (options) return defaultConfig;
+  return {
+    ...defaultConfig,
+    ...(options || {}),
+  }
+}
+
 
 export const MAJOR_HYPHENATION_INDICATOR_VALUE = 1
 export const MINOR_HYPHENATION_INDICATOR_VALUE = 0.55

@@ -1,9 +1,9 @@
-// import * as tf from '@tensorflow/tfjs';
-import * as tf from '@tensorflow/tfjs-core';
-import '@tensorflow/tfjs-backend-webgl';
-import { loadLayersModel } from '@tensorflow/tfjs-layers'
+import * as tf from '@tensorflow/tfjs';
+// import * as tf from '@tensorflow/tfjs-core';
+// import '@tensorflow/tfjs-backend-webgl';
+// import { loadLayersModel } from '@tensorflow/tfjs-layers'
 
-import config from './config'
+import { GetOptions } from './config'
 export const chars = ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'á', 'æ', 'é', 'í', 'ð', 'ó', 'ö', 'ú', 'ý', 'þ']
 const number_of_possible_letters = chars.length
 const WINDOW_SIZE = 22;
@@ -21,12 +21,14 @@ export const cache = {}
  * Output an object showing hyphenation point likelihood
  *   { "word": [0,0,1] }
  */
-export const predict = async (array_of_words) => {
+export const predict = async(array_of_words, options) => {
+  options = GetOptions(options)
+
   if (array_of_words.length === 0) return cache;
   const startTime = new Date();
 
   if (!model) {
-    model = await loadLayersModel(`${config.model_base_url || ''}/model/model.json`)
+    model = await tf.loadLayersModel(`${options.model_base_url || ''}/model/model.json`)
   }
   const startTime2 = new Date();
 
@@ -68,7 +70,7 @@ export const predict = async (array_of_words) => {
     cache[word] = out
   })
 
-  if (config.verbose) {
+  if (options.verbose) {
     console.log(`Hyphenation for ${array_of_words.length} words done in ${Math.round(new Date() - startTime2)} ms (loading model took ${Math.round(startTime2-startTime)} ms)`)
   }
 

@@ -1,10 +1,13 @@
-import DOM from './DOM'
-import HyphenateText from './text'
-import { predict, chars } from './predict'
+import HyphenateDOM from './hyphenateDOM'
+import HyphenateText from './hyphenateText'
 
+// setTimeout(()=>{
+//   DOM()
+// },300)
 
-setTimeout(()=>{
-  DOM()
-},300)
-
-console.log('haha')
+if (window) {
+  window.IcelandicHyphenation = {
+    HyphenateText,
+    HyphenateDOM,
+  }
+}

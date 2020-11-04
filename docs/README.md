@@ -28,7 +28,7 @@ IcelandicHyphenation.HyphenateElement(element)
 
 </script>
 ```
-
+<!--
 **In Node.js:**
 
 ```js
@@ -36,7 +36,7 @@ const IcelandicHyphenation = require('icelandic-hyphenation-neural')
 
 const text = await IcelandicHyphenation.HyphenateText('forsætisráðherra')
 ```
-
+-->
 ### Configuration
 
 - `min_word_length`
@@ -85,5 +85,3 @@ const text = await IcelandicHyphenation.HyphenateText('óánægð með ísbúði
 ## License
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-You can suggest improvements by using the [issue tracker](https://github.com/egilll/icelandic-hyphenation/issues/new) or by [contacting me](mailto:egill@egill.xyz).
