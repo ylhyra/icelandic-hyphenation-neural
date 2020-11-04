@@ -26,7 +26,7 @@ export const predict = async (array_of_words) => {
   const startTime = new Date();
 
   if (!model) {
-    model = await loadLayersModel(`${config.url || ''}/model/model.json`)
+    model = await loadLayersModel(`${config.model_base_url || ''}/model/model.json`)
   }
   const startTime2 = new Date();
 

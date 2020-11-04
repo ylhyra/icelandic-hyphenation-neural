@@ -6,7 +6,7 @@ const defaultConfig = {
   secondary_splits_if_subword_is_at_minimum_X_length: 8,
   verbose: true,
   debug: process.env.NODE_ENV !== 'production',
-  url: process.env.NODE_ENV === 'production' ? "" : "http://localhost:9500",
+  model_base_url: process.env.NODE_ENV === 'production' ? "https://cdn.jsdelivr.net/gh/ylhyra/icelandic-hyphenation-neural/build" : "http://localhost:9500",
 }
 // const url = document.currentScript ? document.currentScript:''
 
