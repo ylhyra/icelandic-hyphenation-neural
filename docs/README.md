@@ -1,8 +1,19 @@
 # Hyphenation neural network for Icelandic 🇮🇸
 
-This neural network recognizes word boundaries in Icelandic [compound words](https://en.wikipedia.org/wiki/Compound_(linguistics)) and nested compound words. By default it hyphenates on “*aðfangadags–kvöld*” rather than “*aðfanga–dagskvöld*”, allowing the reader to parse words with more ease. Optionally, more frequent hyphenation points (“*að·fanga·dags·kvöld*”) can be returned
+This is a JavaScript-based neural network recognizes word boundaries in Icelandic [compound words](https://en.wikipedia.org/wiki/Compound_(linguistics)) and nested compound words. By default it hyphenates on “*aðfangadags–kvöld*” rather than “*aðfanga–dagskvöld*”, allowing the reader to parse words with more ease. Optionally, more frequent hyphenation points (“*að·fanga·dags·kvöld*”) can be returned.
 
-The program runs in a browser.
+Use it online [here](http://hyphenation.ylhyra.is/).
+
+#
+
+```html
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ylhyra/icelandic-hyphenation-neural/build/core.js"></script>
+<script type="text/javascript">
+IcelandicHyphenation.config.model_url = "https://cdn.jsdelivr.net/gh/ylhyra/icelandic-hyphenation-neural/build/model/mode.json"
+var output = IcelandicHyphenation.text('virkilega langur texti')
+</script>
+```
+
 
 ## Documentation
 
@@ -14,7 +25,6 @@ The program runs in a browser.
 
 ## License
 
-* Code: [MIT](https://opensource.org/licenses/MIT)
-* Trained network: [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Use it online [here](https://ordskipting.egill.xyz/). You can suggest improvements by using the [issue tracker](https://github.com/egilll/icelandic-hyphenation/issues/new) or by [contacting me](mailto:egill@egill.xyz).
+You can suggest improvements by using the [issue tracker](https://github.com/egilll/icelandic-hyphenation/issues/new) or by [contacting me](mailto:egill@egill.xyz).

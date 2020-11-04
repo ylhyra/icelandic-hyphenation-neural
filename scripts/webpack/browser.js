@@ -18,7 +18,7 @@ module.exports = {
   },
   mode: process.env.NODE_ENV,
   entry: {
-    plugin: [ /*polyfills,*/ resolve('plugin/index.js')],
+    core: [ /*polyfills,*/ resolve('core/index.js')],
     website: [ /*polyfills,*/ resolve('website/frontend/index.js')],
     // server: [ /*polyfills,*/ resolve('website/server/index.js')],
   },
