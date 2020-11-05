@@ -7,42 +7,48 @@
   <!-- <meta name="description" content=""/> -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" href="/css.css?build=000000" />
+  <link rel="stylesheet" href="css.css?build=000000" />
 </head>
 
 <body>
-  <div>
+  <main>
     <h1>
       Íslenskar orð&shy;skiptingar
     </h1>
-    <div class="subtitle">
+    <h3 class="subtitle">
       Orðskipti&shy;vél sem tekur tillit<br/> til sam&shy;skeyttra orða
+    </h3>
+    <div id="root">
+      Kveikja þarf á JavaScript til að þessi vél virki
     </div>
-    <noscript>Kveikja þarf á JavaScript til að þessi vél virki</noscript>
-    <div id="root"></div>
-    <div class="paragraph">
-      Þessi vél bætir inn <b><a href="https://en.wikipedia.org/wiki/Soft_hyphen">mjúkum bandstrikum</a></b> þar sem við á. Bandstrikin eru ósýnileg, en gefa tölvum vísbendingar um hvar best sé að skipta orði.
-    </div>
-    <div class="paragraph">
-      Samsett íslensk orð eru flestum orðskipti&shy;vélum ofviða. Hér er reynt eftir fremsta megni að skipta samsettum orðum eftir merkingar&shy;bútum frekar en hljóð&shy;bútum.
-    </div>
-    <div class="paragraph">
-      Hægt er að nota útkomuna úr þessari vél hvar sem er, í ritvinnsluforritum eða á netinu.
-    </div>
+    <p>
+      Þessi vél bætir inn <b><a href="https://en.wikipedia.org/wiki/Soft_hyphen">mjúkum band&shy;strikum</a></b> þar sem við á. Band&shy;strikin eru ósýnileg, en gefa tölvum vís&shy;bendingar um hvar best sé að skipta orði.
+    </p>
+    <p>
+      Samsett íslensk orð eru flestum orðskipti&shy;vélum ofviða. Hér er reynt eftir fremsta megni að skipta sam&shy;settum orðum eftir merkingar&shy;bútum frekar en hljóð&shy;bútum.
+    </p>
+    <p>
+      Hægt er að nota útkomuna úr þessari vél hvar sem er, í ritvinnslu&shy;forritum eða á netinu.
+    </p>
 
-    <div class="paragraph">
-      Sendið upplýsingar um villur <a href="mailto:egill@egill.xyz">hingað</a>. Orð geta verið tvíræð og því reynir vélin frekar að gæta hófs við orðskiptingar.
+    <p>
+      Sendið upp&shy;lýsingar um villur <a href="mailto:egill@egill.xyz">hingað</a>.
+    </p>
+  </main>
+
+  <footer>
+    <div class="contact">
+      <a href="https://ylhyra.is/" class="gray name"><b>Ylhýra</b></a> •
+      <a href="mailto:ylhyra@ylhyra.is">
+        <span lang=is>Tilkynna um villur</span>
+        <span lang=en hidden>Report errors</span>
+      </a> •
+      <a href="https://github.com/egilll/icelandic-hyphenation/blob/master/docs/README.md#readme">
+        <span lang=is>Um verkefnið</span>
+        <span lang=en hidden>About</span>
+      </a>
     </div>
-
-    <div class="paragraph small-gray">
-      <a href="https://github.com/egilll/icelandic-hyphenation/blob/master/docs/README.md#readme"><span>Um verkefnið</span></a> 
-
-      <!--– <a href="https://github.com/egilll/icelandic-hyphenation/blob/master/docs/API-is.md#readme"><span>Api</span> {'🐒'}</a>-->
-    </div>
-
-  </div>
-
-  <script src="/js/website.js?build=000000"></script>
+  </footer>
+  <script src="js/website.js?build=000000"></script>
 </body>
-
 </html>
