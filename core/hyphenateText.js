@@ -12,8 +12,8 @@ const fullyIcelandicString = new RegExp(`^[${icelandic_letters}]+$`, 'i')
 // const spaces = ' \u00A0' /* Space and nbsp */
 
 
-const MIN_TO_COUNT_AS_MAJOR_HYPH = MAJOR_HYPHENATION_INDICATOR_VALUE - 0.3
-const MIN_TO_COUNT_AS_MINOR_HYPH = MINOR_HYPHENATION_INDICATOR_VALUE - 0.25
+const MIN_TO_COUNT_AS_MAJOR_HYPH = MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2
+const MIN_TO_COUNT_AS_MINOR_HYPH = MINOR_HYPHENATION_INDICATOR_VALUE - 0.2
 
 
 /**
@@ -86,20 +86,26 @@ const HyphenateText = async(text, options, setMessage) => {
 
     let chosen = []
     sorted.forEach(item => {
-      if (chosen.find(c => Math.abs(item.index - c.index) < options.min_subword_length)) return;
+      let shouldIgnore = false
+      /* Discard those too close to any split */
+      if (chosen.find(c => Math.abs(item.index - c.index) < options.min_subword_length)) {
+        shouldIgnore = true
+      }
       /* Apply primary hyphenations */
       if (item.value > MIN_TO_COUNT_AS_MAJOR_HYPH) {
-        return chosen.push(item)
+        return chosen.push({ ...item, shouldIgnore })
       }
-      /* Apply secondary hyphenations */
-      /* Discard those too close to primary splits */
-      if (chosen.filter(i => i.value > MIN_TO_COUNT_AS_MAJOR_HYPH).find(c => Math.abs(item.index - c.index) < options.min_distance_from_a_primary_to_secondary_split)) return;
-      /* Discard those too close to any split */
-      if (chosen.find(c => Math.abs(item.index - c.index) < options.min_subword_length)) return;
       if (item.value > MIN_TO_COUNT_AS_MINOR_HYPH) {
-        return chosen.push(item)
+        /* Apply secondary hyphenations */
+        /* Discard those too close to primary splits */
+        if (chosen.filter(i => i.value > MIN_TO_COUNT_AS_MAJOR_HYPH).find(c => Math.abs(item.index - c.index) < options.min_distance_from_a_primary_to_secondary_split)) {
+          shouldIgnore = true
+        }
+        return chosen.push({ ...item, shouldIgnore })
       }
     })
+
+    chosen = chosen.filter(i => !i.shouldIgnore)
 
     let out = ''
     const split = item.string.split('')
