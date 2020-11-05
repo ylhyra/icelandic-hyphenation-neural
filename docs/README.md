@@ -1,6 +1,6 @@
 <h1 align="center">Hyphenation <br/>neural network <br/>for Icelandic <br/>🇮🇸</h1>
 
-This is a JavaScript-based neural network recognizes word boundaries in Icelandic [compound words](https://en.wikipedia.org/wiki/Compound_(linguistics)) and nested compound words. By default it hyphenates on “*orðskiptingar–vélmenni*” rather than “*orðskiptingarvél–menni*”, which can in many situations aid the reader to parse the word.
+This is a JavaScript-based neural network that recognizes word boundaries in Icelandic [compound words](https://en.wikipedia.org/wiki/Compound_(linguistics)) and nested compound words. By default it hyphenates on “*orðskiptingar–vélmenni*” rather than “*orðskiptingarvél–menni*”, which can in many situations aid the reader to parse the word.
 
 Use it online [here](http://hyphenation.ylhyra.is/).
 
@@ -54,8 +54,6 @@ const text = await IcelandicHyphenation.HyphenateText('forsætisráðherra')
 - `min_distance_from_a_primary_to_secondary_split`
   - In the word "*for|sætis**·**ráð|herra**–**sumar**·**bú|staðurinn*", primary splits are marked with "**–**", secondary splits are marked with "**·**", and tertiary splits are marked with "|". Here we have two sub-words: "forsætis**·**ráðherra" and "sumar**·**bústaðurinn". These words are too long still and we usually want to split them even further. If `min_distance_from_a_primary_to_secondary_split` is 5 or less, our hyphenated output will be "*forsætis–ráðherra–sumar-bústaðurinn*". If it is more than 8, the hyphenated output will be "*forsætisráðherra–sumarbústaðurinn*".
   - Default: 7
-- `model_base_url`
-  - Default:
 
 **Examples:**
 

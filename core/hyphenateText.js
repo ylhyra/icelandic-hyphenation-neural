@@ -91,12 +91,12 @@ const HyphenateText = async(text, options, setMessage) => {
       if (chosen.find(c => Math.abs(item.index - c.index) < options.min_subword_length)) {
         shouldIgnore = true
       }
-      /* Apply primary hyphenations */
+      /* Primary hyphenations */
       if (item.value > MIN_TO_COUNT_AS_MAJOR_HYPH) {
         return chosen.push({ ...item, shouldIgnore })
       }
+      /* Secondary hyphenations */
       if (item.value > MIN_TO_COUNT_AS_MINOR_HYPH) {
-        /* Apply secondary hyphenations */
         /* Discard those too close to primary splits */
         if (chosen.filter(i => i.value > MIN_TO_COUNT_AS_MAJOR_HYPH).find(c => Math.abs(item.index - c.index) < options.min_distance_from_a_primary_to_secondary_split)) {
           shouldIgnore = true
