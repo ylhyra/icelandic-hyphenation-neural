@@ -4,7 +4,7 @@ set -e
 rm -f build/index.html
 # rm -f build/css.css
 
-# npm run build
+npm run build
 
 npm run styles
 

@@ -61,9 +61,10 @@ const text = await IcelandicHyphenation.HyphenateText('forsætisráðherra')
 
 
 ```js
-/* Returns „ó-ánægð með ís-búðina“ */
-const text = await IcelandicHyphenation.HyphenateText('óánægð með ísbúðina', {
+/* Returns „Jökul-á ó-fær“ */
+const text = await IcelandicHyphenation.HyphenateText('Jökulá ófær', {
   min_left_letters: 1,
+  min_right_letters: 1,
 })
 ```
 
@@ -85,3 +86,4 @@ const text = await IcelandicHyphenation.HyphenateText('óánægð með ísbúði
 ## License
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
