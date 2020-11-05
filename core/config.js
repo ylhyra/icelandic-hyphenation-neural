@@ -9,7 +9,7 @@ const defaultConfig = {
   model_base_url: process.env.NODE_ENV === 'production' ? "https://cdn.jsdelivr.net/gh/ylhyra/icelandic-hyphenation-neural/build" : "http://localhost:9500",
 }
 // const url = document.currentScript ? document.currentScript:''
-
+console.log(document.currentScript )
 export default defaultConfig
 
 export const GetOptions = (options) => {

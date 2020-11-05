@@ -7,8 +7,8 @@
 *.npz
 *.pb
 *.pyc
-*.txt
-*.txt
+keras/**/*.txt
 *.xml
 **/logs/**
 node_modules/*
+*-E

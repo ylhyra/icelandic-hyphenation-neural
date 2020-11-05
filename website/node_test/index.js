@@ -1,7 +1,7 @@
 /*
 export NODE_PATH=. && node -r esm website/node_test/index.js
 */
-import HyphenateText from 'core/text'
+import HyphenateText from 'core/hyphenateText'
 
 const main = async() => {
   const text = HyphenateText('vinsæll', {

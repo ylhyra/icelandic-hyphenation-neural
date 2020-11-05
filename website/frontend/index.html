@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Íslenskar orðskiptingar</title>
-<meta charset="utf-8"/>
-<!-- <meta name="description" content=""/> -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="mobile-web-app-capable" content="yes">
-<link rel="stylesheet" href="/css.css?build=000000"/>
+  <title>Íslenskar orðskiptingar</title>
+  <meta charset="utf-8" />
+  <!-- <meta name="description" content=""/> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css.css?build=000000" />
 </head>
+
 <body>
-<div id="root"></div>
-<noscript>JavaScript required</noscript>
-<script src="/js/website.js?build=000000"></script>
+  <div>
+    <h1>
+      Íslenskar orð&shy;skiptingar
+    </h1>
+    <div class="subtitle">
+      Orðskipti&shy;vél sem tekur tillit<br/> til sam&shy;skeyttra orða
+    </div>
+    <noscript>Kveikja þarf á JavaScript til að þessi vél virki</noscript>
+    <div id="root"></div>
+    <div class="paragraph">
+      Þessi vél bætir inn <b><a href="https://en.wikipedia.org/wiki/Soft_hyphen">mjúkum bandstrikum</a></b> þar sem við á. Bandstrikin eru ósýnileg, en gefa tölvum vísbendingar um hvar best sé að skipta orði.
+    </div>
+    <div class="paragraph">
+      Samsett íslensk orð eru flestum orðskipti&shy;vélum ofviða. Hér er reynt eftir fremsta megni að skipta samsettum orðum eftir merkingar&shy;bútum frekar en hljóð&shy;bútum.
+    </div>
+    <div class="paragraph">
+      Hægt er að nota útkomuna úr þessari vél hvar sem er, í ritvinnsluforritum eða á netinu.
+    </div>
+
+    <div class="paragraph">
+      Sendið upplýsingar um villur <a href="mailto:egill@egill.xyz">hingað</a>. Orð geta verið tvíræð og því reynir vélin frekar að gæta hófs við orðskiptingar.
+    </div>
+
+    <div class="paragraph small-gray">
+      <a href="https://github.com/egilll/icelandic-hyphenation/blob/master/docs/README.md#readme"><span>Um verkefnið</span></a> 
+
+      <!--– <a href="https://github.com/egilll/icelandic-hyphenation/blob/master/docs/API-is.md#readme"><span>Api</span> {'🐒'}</a>-->
+    </div>
+
+  </div>
+
+  <script src="/js/website.js?build=000000"></script>
 </body>
+
 </html>
