@@ -2,29 +2,54 @@ import React from 'react'
 import HyphenateText from 'core/hyphenateText'
 import copy from 'clipboard-copy'
 
+const options = {
+  best: {
+    min_left_letters: 3,
+    min_right_letters: 3,
+    min_word_length: 6,
+    min_subword_length: 4,
+    min_subword_length_for_secondary_splits: 14,
+  },
+  next_best: {
+    min_left_letters: 3,
+    min_right_letters: 3,
+    min_word_length: 6,
+    min_subword_length: 3,
+    min_subword_length_for_secondary_splits: 8,
+  },
+}
+
 class App extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       text: '',
       hyphenated: '',
       message: '',
       option: 'unicode',
+      options: options.best
     }
   }
-  handleChange = async e => {
-    const hyphenated = await HyphenateText(e.target.value)
-
-    // get(e.target.value, hyphenated => {
+  handleTextareaChange = e => {
+    this.timer && clearTimeout(this.timer)
+    this.setState({ message: 'Hleð...', text: e.target.value })
+    this.timer = setTimeout(this.hyphenate, 500);
+  }
+  hyphenate = async() => {
+    try {
+      const hyphenated = await HyphenateText(this.state.text, this.state.options)
       this.setState({ hyphenated, message: null })
       this.copy(hyphenated)
-    // }, message => {
-    //   this.setState({ message })
-    // })
+    } catch (e) {
+      this.setState({ message: '<b>Villa</b>: Náði ekki að sækja líkan! :(' })
+    }
   }
   updateOption = e => {
     this.setState({ option: e.target.value });
     this.copy(this.state.hyphenated)
+  }
+  updateSensitivity = e => {
+    this.setState({ options: options[e.target.value] }, this.hyphenate)
   }
   copy = text => {
     this.setState({ message: null })
@@ -44,13 +69,19 @@ class App extends React.Component {
   }
   render = () => {
     return <div>
-      <textarea onChange={this.handleChange} placeholder="Skrifaðu texta..."/>
-      {this.state.message && <div className="clipboard" dangerouslySetInnerHTML={{__html: this.state.message}}/> }
+      <textarea onChange={this.handleTextareaChange} placeholder="Skrifaðu texta..."/>
       {this.state.hyphenated && (
         <div>
           {this.state.option === 'unicode' && <div className="output" dangerouslySetInnerHTML={{__html: StyledUnicode(this.state.hyphenated)}}/>}
           {this.state.option === 'html' && <div className="output" dangerouslySetInnerHTML={{__html: HTML(this.state.hyphenated)}}/>}
           {this.state.option === 'css' && <div className="output" dangerouslySetInnerHTML={{__html: CSS(this.state.hyphenated)}}/>}
+          <div className="options">
+            Hamur: {' '}
+            <select onChange={this.updateSensitivity}>
+              <option value="best">Aðeins bestu orðskiptingarnar, bara mjög löng orð (gott fyrir texta á netinu)</option>
+              <option value="next_best">Bestu og næstbestu orðskiptingarnar (hentar betur ef texti þarf að komsat fyrir í mjóum dálkum)</option>
+            </select>
+          </div>
           <div className="options">
             Hvernig bandstrik má bjóða þér?{' '}
             <select onChange={this.updateOption}>
@@ -61,6 +92,7 @@ class App extends React.Component {
           </div>
         </div>
       )}
+      {this.state.message && <div className="clipboard" dangerouslySetInnerHTML={{__html: this.state.message}}/> }
     </div>
   }
 }
