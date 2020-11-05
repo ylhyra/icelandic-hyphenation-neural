@@ -1,6 +1,6 @@
 <h1 align="center">Hyphenation <br/>neural network <br/>for Icelandic <br/>🇮🇸</h1>
 
-This is a JavaScript-based neural network recognizes word boundaries in Icelandic [compound words](https://en.wikipedia.org/wiki/Compound_(linguistics)) and nested compound words. By default it hyphenates on “*aðfangadags–kvöld*” rather than “*aðfanga–dagskvöld*”, which can in many situations aid the reader to parse the word. Optionally, more frequent hyphenation points (“*að·fanga·dags·kvöld*”) can be returned.
+This is a JavaScript-based neural network recognizes word boundaries in Icelandic [compound words](https://en.wikipedia.org/wiki/Compound_(linguistics)) and nested compound words. By default it hyphenates on “*orðskiptingar–vélmenni*” rather than “*orðskiptingarvél–menni*”, which can in many situations aid the reader to parse the word.
 
 Use it online [here](http://hyphenation.ylhyra.is/).
 
