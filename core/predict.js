@@ -73,6 +73,7 @@ export const predict = async(array_of_words, options) => {
   if (options.verbose) {
     console.log(`Hyphenation for ${array_of_words.length} words done in ${Math.round(new Date() - startTime2)} ms (loading model took ${Math.round(startTime2-startTime)} ms)`)
   }
+  // console.log(cache)
 
   return cache
 }

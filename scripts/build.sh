@@ -9,6 +9,11 @@ npm run build
 npm run styles
 
 cp website/frontend/index.html build/index.html
+
+
+sed -i -E "s/http:\/\/localhost:3100\/website.js/js\/website.js/" build/index.html
+sed -i -E "s/http:\/\/localhost:5000\///" build/index.html
+
 # cp website/frontend/css.css build/css.css
 
 # JS_HASH=($(sha1sum build/js/website.js))

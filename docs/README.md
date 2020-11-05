@@ -6,7 +6,7 @@ Use it online [here](http://hyphenation.ylhyra.is/).
 
 ## Documentation
 
-This program adds [soft hyphens](https://en.wikipedia.org/wiki/Soft_hyphen) to text. It can run in the browser or Node.js with the use of [TensorFlow.js](https://www.tensorflow.org/js). The program is 700kB gzipped. Initialization takes about 2 seconds but the hyphenation itself is quick. Hyphenation should be applied to text during a pre-processing step rather than being applied by end-users.
+This program adds [soft hyphens](https://en.wikipedia.org/wiki/Soft_hyphen) to text. It can run in the browser or Node.js with the use of [TensorFlow.js](https://www.tensorflow.org/js). The program is 700kB gzipped. Initialization takes about a second but the hyphenation itself is quick, hyphenating a 30,000 word book takes about 7 seconds. Hyphenation should be applied to text during a pre-processing step rather than being applied by end-users.
 
 **In the browser:**
 

@@ -17,112 +17,96 @@ const fullyIcelandicString = new RegExp(`^[${icelandic_letters}]+$`, 'i')
 const HyphenateText = async(text, options, setMessage) => {
   options = GetOptions(options)
 
-  try {
-    /* Remove any previous soft hyphens */
-    text = text.replace(SOFT_HYPHEN_REGEX, '')
+  // console.log(options)
 
-    const allStringsInDocument = []
-    const wordsToHyphenate = []
-    const icelandicRegex = new RegExp(`([${icelandic_letters}]{${options.min_word_length},})`, 'i')
+  /* Remove any previous soft hyphens */
+  text = text.replace(SOFT_HYPHEN_REGEX, '')
 
-    text
-      /* Split on spaces and adjacent non-Latin (which includes punctuation) */
-      .split(spacesAndAdjacentPunctuation)
-      .forEach(string => {
-        if (
-          /* Short words */
-          string.length < options.min_word_length ||
-          /* Spaces */
-          /\s/.test(string) ||
-          /* Other strings that don't include Icelandic */
-          !(new RegExp(`[${icelandic_letters}]{${options.min_word_length}}`, 'i')).test(string)
-        ) {
-          allStringsInDocument.push({ string })
-          return;
-        }
-        /* Fully Icelandic string */
-        if (fullyIcelandicString.test(string)) {
-          if (!wordsToHyphenate.includes(string.toLowerCase())) {
-            wordsToHyphenate.push(string.toLowerCase())
-          }
-          allStringsInDocument.push({ string, toHyphenate: string.toLowerCase() })
-          return;
-        }
-        /* Icelandic mixed with other */
-        const split = string.split(icelandicRegex)
-        split.forEach((item, index) => {
-          if (index % 2 !== 0 || item.length < options.min_word_length) {
-            allStringsInDocument.push({ string: item })
-          } else {
-            if (!wordsToHyphenate.includes(item.toLowerCase())) {
-              wordsToHyphenate.push(item.toLowerCase())
-            }
-            allStringsInDocument.push({ string: item, toHyphenate: item.toLowerCase() })
-          }
-        })
-      })
+  const allStringsInDocument = []
+  const wordsToHyphenate = []
+  const icelandicRegex = new RegExp(`([${icelandic_letters}]{${options.min_word_length},})`, 'i')
 
-    const prediction = await predict(wordsToHyphenate, options)
-
-    // if (config.debug) {
-    //   let debug = []
-    //   for (let word in prediction) {
-    //     debug.push(prediction[word])
-    //   }
-    //   console.log(debug.join(', '))
-    // }
-    // console.log(prediction)
-    // console.log(allStringsInDocument)
-    return allStringsInDocument.map(item => {
-      if (!item.toHyphenate) return item.string;
-      const hyphenation = prediction[item.toHyphenate]
-      if (!hyphenation.find(i => i > MINOR_HYPHENATION_INDICATOR_VALUE - 0.2)) return item.string;
-
-      const areThereAnyMajorHyphenations = hyphenation.find(i => i > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2)
-
-      let sorted = hyphenation.map((value, index) => {
-        if (value > MINOR_HYPHENATION_INDICATOR_VALUE - 0.2) {
-          return { value, index }
-        }
-        return null
-      }).filter(Boolean).sort((a, b) => b.value - a.value)
-
-      let chosen = []
-      sorted.forEach(item => {
-        if (chosen.find(c => Math.abs(item.index - c.index) < options.min_subword_length)) return;
-        if (
-          item.value > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2 ||
-          !areThereAnyMajorHyphenations
-        ) {
-          return chosen.push(item)
-        }
-
-        //   const closestToLeft =
-        //   const closestToRight =
-        //
-        // !chosen.find(c => Math.abs(item.index - c.index) <= config.min_subword_length_for_secondary_splits)
-      })
-
-      let out = ''
-      const split = item.string.split('')
-      for (let i = 0; i < split.length; i++) {
-        out += split[i]
-        if (i + 1 < options.min_left_letters ||
-          item.string.length - i - 1 < options.min_right_letters
-        ) continue;
-        const value = (chosen.find(c => c.index === i) || {}).value
-        if (value > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2) {
-          out += SOFT_HYPHEN
-        } else if (value > MINOR_HYPHENATION_INDICATOR_VALUE - 0.2) {
-          out += SOFT_HYPHEN
-        }
+  text
+    /* Split on spaces and adjacent non-Latin (which includes punctuation) */
+    .split(spacesAndAdjacentPunctuation)
+    .forEach(string => {
+      if (
+        /* Short words */
+        string.length < options.min_word_length ||
+        /* Spaces */
+        /\s/.test(string) ||
+        /* Other strings that don't include Icelandic */
+        !(new RegExp(`[${icelandic_letters}]{${options.min_word_length}}`, 'i')).test(string)
+      ) {
+        allStringsInDocument.push({ string })
+        return;
       }
-      return out
-    }).join('')
+      /* Fully Icelandic string */
+      if (fullyIcelandicString.test(string)) {
+        if (!wordsToHyphenate.includes(string.toLowerCase())) {
+          wordsToHyphenate.push(string.toLowerCase())
+        }
+        allStringsInDocument.push({ string, toHyphenate: string.toLowerCase() })
+        return;
+      }
+      /* Icelandic mixed with other */
+      const split = string.split(icelandicRegex)
+      split.forEach((item, index) => {
+        if (index % 2 !== 0 || item.length < options.min_word_length) {
+          allStringsInDocument.push({ string: item })
+        } else {
+          if (!wordsToHyphenate.includes(item.toLowerCase())) {
+            wordsToHyphenate.push(item.toLowerCase())
+          }
+          allStringsInDocument.push({ string: item, toHyphenate: item.toLowerCase() })
+        }
+      })
+    })
 
-  } catch (error) {
-    console.log(error)
-  }
+  const prediction = await predict(wordsToHyphenate, options)
+
+  return allStringsInDocument.map(item => {
+    if (!item.toHyphenate) return item.string;
+    const hyphenation = prediction[item.toHyphenate]
+    if (!hyphenation.find(i => i > MINOR_HYPHENATION_INDICATOR_VALUE - 0.2)) return item.string;
+
+    const areThereAnyMajorHyphenations = hyphenation.find(i => i > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2)
+
+    let sorted = hyphenation.map((value, index) => {
+      if (value > MINOR_HYPHENATION_INDICATOR_VALUE - 0.2) {
+        return { value, index }
+      }
+      return null
+    }).filter(Boolean).sort((a, b) => b.value - a.value)
+
+    let chosen = []
+    sorted.forEach(item => {
+      if (chosen.find(c => Math.abs(item.index - c.index) < options.min_subword_length)) return;
+      if (
+        item.value > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2 ||
+        !areThereAnyMajorHyphenations
+      ) {
+        return chosen.push(item)
+      }
+    })
+
+    let out = ''
+    const split = item.string.split('')
+    for (let i = 0; i < split.length; i++) {
+      out += split[i]
+      if (i + 1 < options.min_left_letters ||
+        item.string.length - i - 1 < options.min_right_letters
+      ) continue;
+      const value = (chosen.find(c => c.index === i) || {}).value
+      if (value > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2) {
+        out += SOFT_HYPHEN
+      } else if (value > MINOR_HYPHENATION_INDICATOR_VALUE - 0.2) {
+        out += SOFT_HYPHEN
+      }
+    }
+    return out
+  }).join('')
+
 }
 
 export default HyphenateText
