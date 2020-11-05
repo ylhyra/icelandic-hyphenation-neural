@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Íslenskar orðskiptingar</title>
-<meta charset="utf-8"/>
-<!-- <meta name="description" content=""/> -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="mobile-web-app-capable" content="yes">
-<link rel="stylesheet" href="/css.css?build=000000"/>
+  <title>Íslenskar orðskiptingar</title>
+  <meta charset="utf-8" />
+  <!-- <meta name="description" content=""/> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="css.css?build=000000" />
 </head>
+
 <body>
-<div id="root"></div>
-<noscript>JavaScript required</noscript>
-<script src="/js/website.js?build=000000"></script>
+  <main>
+    <h1>
+      <span>Íslensk orð&shy;skiptivél</span>
+    </h1>
+    <div id="root">
+      <noscript>
+        Kveikja þarf á JavaScript til að þessi vél virki
+      </noscript>
+    </div>
+    <p>
+      Þessi orðskipti&shy;vél tekur tillit til sam­s&shy;keyttra íslenskra orða. Vélin bætir við <a href="https://en.wikipedia.org/wiki/Soft_hyphen">ósýni&shy;legum band&shy;strikum</a> þar sem við á, ósýnileg band&shy;strik gefa tölvum vís&shy;bendingar
+      um hvar sé best að skipta orði.
+    </p>
+    <p>
+      Hægt er að nota útkomuna úr þessari vél hvar sem er, í ritvinnslu&shy;forritum eða á netinu.
+    </p>
+    <p>Vélin keyrir í vafranum þínum, texti er ekki sendur á net&shy;þjón.
+    </p>
+  </main>
+
+  <footer>
+    <div class="contact">
+      <a href="https://ylhyra.is/" class="gray name"><b>Ylhýra</b></a> •
+      <a href="https://github.com/ylhyra/icelandic-hyphenation-neural/blob/master/docs/README.md#readme">
+        <span lang=is>Um verkefnið</span>
+        <span lang=en hidden>About</span>
+      </a> •
+      <a href="mailto:ylhyra@ylhyra.is">
+        <span lang=is>Tilkynna um villur</span>
+        <span lang=en hidden>Report errors</span>
+      </a>
+    </div>
+  </footer>
+  <script src="js/website.js?build=000000"></script>
 </body>
+
 </html>

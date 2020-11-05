@@ -1,5 +1,5 @@
 import { predict, chars } from './predict'
-import config, { MAJOR_HYPHENATION_INDICATOR_VALUE, MINOR_HYPHENATION_INDICATOR_VALUE } from './config'
+import { GetOptions, MAJOR_HYPHENATION_INDICATOR_VALUE, MINOR_HYPHENATION_INDICATOR_VALUE } from './config'
 export const SOFT_HYPHEN = '\u00AD'
 // export const SOFT_HYPHEN = '-'
 export const SOFT_HYPHEN_REGEX = /\u00AD/g
@@ -14,14 +14,16 @@ const fullyIcelandicString = new RegExp(`^[${icelandic_letters}]+$`, 'i')
 /**
  * Hyphenates raw paragraphs of text
  */
-const HyphenateText = async(text, callback, setMessage) => {
+const HyphenateText = async(text, options, setMessage) => {
+  options = GetOptions(options)
+
   try {
     /* Remove any previous soft hyphens */
     text = text.replace(SOFT_HYPHEN_REGEX, '')
 
     const allStringsInDocument = []
     const wordsToHyphenate = []
-    const icelandicRegex = new RegExp(`([${icelandic_letters}]{${config.min_word_length},})`, 'i')
+    const icelandicRegex = new RegExp(`([${icelandic_letters}]{${options.min_word_length},})`, 'i')
 
     text
       /* Split on spaces and adjacent non-Latin (which includes punctuation) */
@@ -29,11 +31,11 @@ const HyphenateText = async(text, callback, setMessage) => {
       .forEach(string => {
         if (
           /* Short words */
-          string.length < config.min_word_length ||
+          string.length < options.min_word_length ||
           /* Spaces */
           /\s/.test(string) ||
           /* Other strings that don't include Icelandic */
-          !(new RegExp(`[${icelandic_letters}]{${config.min_word_length}}`, 'i')).test(string)
+          !(new RegExp(`[${icelandic_letters}]{${options.min_word_length}}`, 'i')).test(string)
         ) {
           allStringsInDocument.push({ string })
           return;
@@ -49,7 +51,7 @@ const HyphenateText = async(text, callback, setMessage) => {
         /* Icelandic mixed with other */
         const split = string.split(icelandicRegex)
         split.forEach((item, index) => {
-          if (index % 2 !== 0 || item.length < config.min_word_length) {
+          if (index % 2 !== 0 || item.length < options.min_word_length) {
             allStringsInDocument.push({ string: item })
           } else {
             if (!wordsToHyphenate.includes(item.toLowerCase())) {
@@ -60,7 +62,7 @@ const HyphenateText = async(text, callback, setMessage) => {
         })
       })
 
-    const prediction = await predict(wordsToHyphenate)
+    const prediction = await predict(wordsToHyphenate, options)
 
     // if (config.debug) {
     //   let debug = []
@@ -87,7 +89,7 @@ const HyphenateText = async(text, callback, setMessage) => {
 
       let chosen = []
       sorted.forEach(item => {
-        if (chosen.find(c => Math.abs(item.index - c.index) < config.min_subword_length)) return;
+        if (chosen.find(c => Math.abs(item.index - c.index) < options.min_subword_length)) return;
         if (
           item.value > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2 ||
           !areThereAnyMajorHyphenations
@@ -98,15 +100,15 @@ const HyphenateText = async(text, callback, setMessage) => {
         //   const closestToLeft =
         //   const closestToRight =
         //
-        // !chosen.find(c => Math.abs(item.index - c.index) <= config.secondary_splits_if_subword_is_at_minimum_X_length)
+        // !chosen.find(c => Math.abs(item.index - c.index) <= config.min_subword_length_for_secondary_splits)
       })
 
       let out = ''
       const split = item.string.split('')
       for (let i = 0; i < split.length; i++) {
         out += split[i]
-        if (i + 1 < config.min_left_letters ||
-          item.string.length - i - 1 < config.min_right_letters
+        if (i + 1 < options.min_left_letters ||
+          item.string.length - i - 1 < options.min_right_letters
         ) continue;
         const value = (chosen.find(c => c.index === i) || {}).value
         if (value > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2) {

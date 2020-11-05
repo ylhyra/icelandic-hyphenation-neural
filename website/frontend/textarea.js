@@ -1,5 +1,5 @@
 import React from 'react'
-import HyphenateText from 'core/text'
+import HyphenateText from 'core/hyphenateText'
 import copy from 'clipboard-copy'
 
 class App extends React.Component {

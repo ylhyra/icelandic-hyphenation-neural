@@ -2,7 +2,7 @@ var express = require('express')
 var app = express()
 import compression from 'compression'
 import path from 'path'
-import HyphenateText from 'core/text'
+import HyphenateText from 'core/hyphenateText'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import frontpage from 'website/frontend/frontpage.html.js'

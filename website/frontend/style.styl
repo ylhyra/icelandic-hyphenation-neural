@@ -1,0 +1,154 @@
+*
+  box-sizing border-box
+
+html
+  width 100%
+  font-family /*-apple-system, BlinkMacSystemFont,*/ Helvetica Neue, sans-serif
+
+body
+  font-size 14px
+  line-height 1.5
+  margin auto
+  max-width 500px
+  background #f9f9f9
+  background #ffd500
+  padding  10px
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+main
+  flex 1
+
+h1, h2, h3, h4, h5, p, ul
+  margin 0
+  padding 0
+
+a:not(:hover)
+  text-decoration none
+
+code
+  display block
+  font-family monospace
+
+p
+  margin-top 10px
+  margin-bottom 10px
+
+textarea, .output
+  width 100%
+  height 170px
+  border-radius 4px
+  padding 12px
+
+textarea
+  -webkit-user-modify read-write-plaintext-only
+  // font-family monospace
+  // color white
+  // background #272C32
+  cursor text
+  border 1px solid #D8B131;
+  border-radius 3px
+  font-family inherit
+
+.output
+  cursor text
+  background #f2f1f1
+  overflow-y auto
+  border 1px solid #D8B131;
+  border-radius 3px
+  white-space: pre-wrap;
+  .shy
+    width 10px
+    span
+      opacity 0
+    &:before
+      content '-'
+      font-weight 700
+      color #ff0056
+      width 3px
+
+.red
+  color #ff0056
+
+.clipboard
+  font-size 12px
+  color #626262
+  text-align center
+  padding 0px 0 3px 0
+
+hr
+  border none
+  border-bottom 1px solid #dadada
+  margin 40px 0 15px 0
+
+pre
+  background #f2f2f2
+  border 1px solid #dfdfdf
+  padding 10px
+  overflow-x auto
+  font-size 13px
+  white-space nowrap
+
+ul
+  padding-left 20px
+
+.small-gray
+  text-align center
+  font-size 13px
+  color #626262
+  padding-top 20px
+  a
+    color inherit
+    padding 0 3px
+    &:hover
+      span
+        color #2269f4
+        text-decoration underline
+
+h1
+  // text-align center
+  // color #6F56A7
+  font-weight normal
+  font-size 27px
+  padding-top: 27px;
+  font-weight: 500;
+  margin-bottom: 32px;
+  text-align: center;
+  span
+    border-bottom: 1px solid #e6c043;
+    padding-bottom: 3px;
+
+.unselectable
+  -webkit-touch-callout none
+  -webkit-user-select none
+  -khtml-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  user-select none
+
+.options
+  font-size 12px
+  color #626262
+  padding 5px 0
+
+
+#root
+  // min-height 200px
+#noscript
+  min-height 140px
+
+
+footer
+  max-width 500px
+  color: #ba951d;
+  font-size: 11px;
+  .contact
+    margin-top 7px
+    text-align: center;
+    padding-top @margin-top
+    // border-top 1px solid #D8B131
+    .name
+      font-family: serif;
+      font-style: italic;
+      font-size: 12px;
