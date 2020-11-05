@@ -11,6 +11,11 @@ const spacesAndAdjacentPunctuation = new RegExp(`(${matchable_adjacent_to_spaces
 const fullyIcelandicString = new RegExp(`^[${icelandic_letters}]+$`, 'i')
 // const spaces = ' \u00A0' /* Space and nbsp */
 
+
+const MIN_TO_COUNT_AS_MAJOR_HYPH = MAJOR_HYPHENATION_INDICATOR_VALUE - 0.3
+const MIN_TO_COUNT_AS_MINOR_HYPH = MINOR_HYPHENATION_INDICATOR_VALUE - 0.25
+
+
 /**
  * Hyphenates raw paragraphs of text
  */
@@ -68,12 +73,12 @@ const HyphenateText = async(text, options, setMessage) => {
   return allStringsInDocument.map(item => {
     if (!item.toHyphenate) return item.string;
     const hyphenation = prediction[item.toHyphenate]
-    if (!hyphenation.find(i => i > MINOR_HYPHENATION_INDICATOR_VALUE - 0.2)) return item.string;
+    if (!hyphenation.find(i => i > MIN_TO_COUNT_AS_MINOR_HYPH)) return item.string;
 
-    const areThereAnyMajorHyphenations = hyphenation.find(i => i > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2)
+    // const areThereAnyMajorHyphenations = hyphenation.find(i => i > MIN_TO_COUNT_AS_MAJOR_HYPH)
 
     let sorted = hyphenation.map((value, index) => {
-      if (value > MINOR_HYPHENATION_INDICATOR_VALUE - 0.2) {
+      if (value > MIN_TO_COUNT_AS_MINOR_HYPH) {
         return { value, index }
       }
       return null
@@ -82,10 +87,16 @@ const HyphenateText = async(text, options, setMessage) => {
     let chosen = []
     sorted.forEach(item => {
       if (chosen.find(c => Math.abs(item.index - c.index) < options.min_subword_length)) return;
-      if (
-        item.value > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2 ||
-        !areThereAnyMajorHyphenations
-      ) {
+      /* Apply primary hyphenations */
+      if (item.value > MIN_TO_COUNT_AS_MAJOR_HYPH) {
+        return chosen.push(item)
+      }
+      /* Apply secondary hyphenations */
+      /* Discard those too close to primary splits */
+      if (chosen.filter(i => i.value > MIN_TO_COUNT_AS_MAJOR_HYPH).find(c => Math.abs(item.index - c.index) < options.min_distance_from_a_primary_to_secondary_split)) return;
+      /* Discard those too close to any split */
+      if (chosen.find(c => Math.abs(item.index - c.index) < options.min_subword_length)) return;
+      if (item.value > MIN_TO_COUNT_AS_MINOR_HYPH) {
         return chosen.push(item)
       }
     })
@@ -98,9 +109,9 @@ const HyphenateText = async(text, options, setMessage) => {
         item.string.length - i - 1 < options.min_right_letters
       ) continue;
       const value = (chosen.find(c => c.index === i) || {}).value
-      if (value > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2) {
+      if (value > MIN_TO_COUNT_AS_MAJOR_HYPH) {
         out += SOFT_HYPHEN
-      } else if (value > MINOR_HYPHENATION_INDICATOR_VALUE - 0.2) {
+      } else if (value > MIN_TO_COUNT_AS_MINOR_HYPH) {
         out += SOFT_HYPHEN
       }
     }

@@ -27,7 +27,7 @@ class App extends React.Component {
       hyphenated: '',
       message: '',
       option: 'unicode',
-      options: options.best
+      // options: options.best
     }
   }
   handleTextareaChange = e => {
@@ -75,13 +75,13 @@ class App extends React.Component {
           {this.state.option === 'unicode' && <div className="output" dangerouslySetInnerHTML={{__html: StyledUnicode(this.state.hyphenated)}}/>}
           {this.state.option === 'html' && <div className="output" dangerouslySetInnerHTML={{__html: HTML(this.state.hyphenated)}}/>}
           {this.state.option === 'css' && <div className="output" dangerouslySetInnerHTML={{__html: CSS(this.state.hyphenated)}}/>}
-          <div className="options">
+          {/* <div className="options">
             Hamur: {' '}
             <select onChange={this.updateSensitivity}>
               <option value="best">Aðeins bestu orðskiptingarnar, bara mjög löng orð (gott fyrir texta á netinu)</option>
               <option value="next_best">Bestu og næstbestu orðskiptingarnar (hentar betur ef texti þarf að komsat fyrir í mjóum dálkum)</option>
             </select>
-          </div>
+          </div> */}
           <div className="options">
             Hvernig bandstrik má bjóða þér?{' '}
             <select onChange={this.updateOption}>

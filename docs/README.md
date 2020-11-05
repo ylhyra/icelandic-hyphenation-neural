@@ -51,9 +51,9 @@ const text = await IcelandicHyphenation.HyphenateText('forsætisráðherra')
 - `min_subword_length`
   - A sub-word is a word inside the longer word, the subwords in "*sjávar–líf–fræði*" are *sjávar*, *líf*, *fræði* and *líffræði*. This particular option only applies to words in the middle, so here *líf*. If `min_subword_length` is set to 3, the hyphenation can be "*sjávar–líf–fræði*" (if the below option regarding secondary splits is also set low), if it's more than that it will be "*sjávar–líffræði*".
   - Default: 3.
-- `min_subword_length_for_secondary_splits`
-  - In the word "*for|sætis**·**ráð|herra**–**sumar**·**bú|staðurinn*", primary splits are marked with "**–**", secondary splits are marked with "**·**", and tertiary splits are marked with "|". Here we have two sub-words: "forsætis**·**ráðherra" and "sumar**·**bústaðurinn". These words are too long still and we usually want to split them even further. If `min_subword_length_for_secondary_splits` is 16 or less, our hyphenated output will be "*forsætis–ráðherra–sumar–bústaðurinn*". If it is more than 16, the hyphenated output will be "*forsætisráðherra–sumarbústaðurinn*".
-  - Default: 8
+- `min_distance_from_a_primary_to_secondary_split`
+  - In the word "*for|sætis**·**ráð|herra**–**sumar**·**bú|staðurinn*", primary splits are marked with "**–**", secondary splits are marked with "**·**", and tertiary splits are marked with "|". Here we have two sub-words: "forsætis**·**ráðherra" and "sumar**·**bústaðurinn". These words are too long still and we usually want to split them even further. If `min_distance_from_a_primary_to_secondary_split` is 5 or less, our hyphenated output will be "*forsætis–ráðherra–sumar-bústaðurinn*". If it is more than 8, the hyphenated output will be "*forsætisráðherra–sumarbústaðurinn*".
+  - Default: 7
 - `model_base_url`
   - Default:
 
@@ -86,4 +86,3 @@ const text = await IcelandicHyphenation.HyphenateText('Jökulá ófær', {
 ## License
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
