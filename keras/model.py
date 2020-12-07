@@ -30,21 +30,31 @@ model = keras.models.Sequential()
 #     WINDOW_SIZE, number_of_possible_letters)))
 
 model.add(keras.layers.Conv1D(
-    filters=32,
-    kernel_size=8,
+    filters=20,
+    kernel_size=3,
     activation='relu',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
-    filters=14,
+    filters=20,
+    kernel_size=3,
+    activation='relu',
+))
+model.add(keras.layers.Conv1D(
+    filters=8,
     kernel_size=1,
     activation='relu',
 ))
 model.add(keras.layers.Conv1D(
     filters=3,
-    kernel_size=1,
+    kernel_size=2,
     activation='relu',
 ))
+# model.add(keras.layers.Conv1D(
+#     filters=3,
+#     kernel_size=2,
+#     activation='relu',
+# ))
 # model.add(keras.layers.MaxPooling1D(pool_size=2))
 model.add(keras.layers.Flatten())
 
