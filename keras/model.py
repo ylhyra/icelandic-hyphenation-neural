@@ -30,21 +30,22 @@ model = keras.models.Sequential()
 #     WINDOW_SIZE, number_of_possible_letters)))
 
 model.add(keras.layers.Conv1D(
-    filters=30,
+    filters=40,
     kernel_size=3,
     activation='relu',
     # padding='same',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
-    filters=30,
+    filters=20,
     kernel_size=6,
     activation='relu',
     # padding='same',
 ))
 model.add(keras.layers.Conv1D(
-    filters=6,
+    filters=10,
     kernel_size=9,
+    # kernel_size=int(WINDOW_SIZE/2),
     activation='relu',
     # padding='same',
 ))
