@@ -30,35 +30,27 @@ model = keras.models.Sequential()
 #     WINDOW_SIZE, number_of_possible_letters)))
 
 model.add(keras.layers.Conv1D(
-    filters=20,
+    filters=30,
     kernel_size=3,
     activation='relu',
+    # padding='same',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
-    filters=20,
-    kernel_size=3,
+    filters=30,
+    kernel_size=6,
     activation='relu',
+    # padding='same',
 ))
 model.add(keras.layers.Conv1D(
-    filters=8,
-    kernel_size=1,
+    filters=6,
+    kernel_size=9,
     activation='relu',
+    # padding='same',
 ))
-model.add(keras.layers.Conv1D(
-    filters=3,
-    kernel_size=2,
-    activation='relu',
-))
-# model.add(keras.layers.Conv1D(
-#     filters=3,
-#     kernel_size=2,
-#     activation='relu',
-# ))
-# model.add(keras.layers.MaxPooling1D(pool_size=2))
 model.add(keras.layers.Flatten())
 
-model.add(keras.layers.Dense(40, activation='relu'))
+model.add(keras.layers.Dense(60, activation='relu'))
 model.add(keras.layers.Dense(10, activation='relu'))
 # model.add(keras.layers.Dense(SECOND_LAYER_NODES, activation='relu'))
 
@@ -84,6 +76,8 @@ model.add(keras.layers.Dense(10, activation='relu'))
 # testing
 # model.add(keras.layers.Dense(400, activation='relu'))
 # model.add(keras.layers.Dense(400, activation='relu'))
+
+# model.summary()
 
 model.add(keras.layers.Dense(
     OUTPUT_NODES,
