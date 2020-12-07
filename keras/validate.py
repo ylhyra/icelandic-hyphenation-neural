@@ -9,7 +9,7 @@ from model import model
 
 start_time = time()
 
-model.load_weights('data/models.h5')
+model.load_weights('models/model_saved.h5')
 data = data_validation()
 
 print('Validating model...')

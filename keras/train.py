@@ -155,9 +155,9 @@ if __name__ == '__main__':
             # get_lr_metric(OPTIMIZER),
             predictRandomWord(),
             # keras.callbacks.TensorBoard(write_images=True),
-            keras.callbacks.ModelCheckpoint('data/models_latest.h5'),
-            # keras.callbacks.ModelCheckpoint('data/models{epoch:08d}.h5', save_freq=5),
-            ModelCheckpoint("data/best_model.h5", monitor='loss', verbose=0,
+            keras.callbacks.ModelCheckpoint('models/models_latest.h5'),
+            # keras.callbacks.ModelCheckpoint('models/model_saved{epoch:08d}.h5', save_freq=5),
+            ModelCheckpoint("models/model_best.h5", monitor='loss', verbose=0,
                             save_best_only=True, mode='auto',
                             # save_freq=10
                             ),
@@ -177,6 +177,6 @@ if __name__ == '__main__':
 
     )
 
-    model.save('data/models.h5')
+    model.save('models/model_saved.h5')
     print('Done')
     print('Time:', util.time_delta(time() - start_time))

@@ -65,7 +65,7 @@ Done
 Time: 0:06:05.55
 ```
 
-The network weights are stored in `data/models.h5`
+The network weights are stored in `models/model_saved.h5`
 
 ## Validate
 

@@ -57,4 +57,4 @@ best_model=tuner.get_best_models(1)[0]
 best_hyperparameters=tuner.get_best_hyperparameters(1)[0]
 print('Best hyperparameters:')
 print(best_hyperparameters.serialize())
-best_model.save('data/models_found_with_tuning.h5')
+best_model.save('models/models_found_with_tuning.h5')

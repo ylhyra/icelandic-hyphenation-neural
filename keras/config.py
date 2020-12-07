@@ -16,7 +16,7 @@ MORPHEME_BREAK_INDICATOR_VALUE = 0.1
 
 # Training data
 
-TRAINING_SET = 4
+TRAINING_SET = 0
 
 if(TRAINING_SET == 0):
     FILE = 'data/wordlist.txt'
@@ -36,18 +36,19 @@ if(TRAINING_SET == 4):
     VALIDATION_FILE = 'data/validation-from-extra-small.txt'
 
 # Model
-SECOND_LAYER_NODES = 500
-THIRD_LAYER_NODES = 400
-FOURTH_LAYER_NODES = 200
-FIFTH_LAYER_NODES = 100
+SECOND_LAYER_NODES = 800
+THIRD_LAYER_NODES = 800
+FOURTH_LAYER_NODES = 800
+FIFTH_LAYER_NODES = 800
+SIXTH_LAYER_NODES = 400
 OUTPUT_NODES = 1
 LOSS='mse'
 # LOSS='binary_crossentropy'
 OPTIMIZER='adam'
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=0.00005)
-OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-5)
+# OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-5)
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-5)
-OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-6)
+# OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-6)
 
 
 # Noise & dropout
