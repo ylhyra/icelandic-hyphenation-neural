@@ -31,39 +31,39 @@ model = keras.models.Sequential()
 
 #
 model.add(keras.layers.Conv1D(
-    filters=30,
+    filters=50,
     kernel_size=3,
     activation='relu',
     # padding='same',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
-    filters=10,
+    filters=20,
     kernel_size=1,
     activation='relu',
     # padding='same',
 ))
 model.add(keras.layers.Conv1D(
-    filters=30,
+    filters=50,
     kernel_size=4, # A total of 6 letters at once
     activation='relu',
     # padding='same',
 ))
 model.add(keras.layers.Conv1D(
-    filters=6,
+    filters=12,
     kernel_size=1,
     activation='relu',
     # padding='same',
 ))
 model.add(keras.layers.Conv1D(
-    filters=10,
+    filters=18,
     kernel_size=6,  # A total of 11 letters at once
     # kernel_size=int(WINDOW_SIZE/2),
     activation='relu',
     # padding='same',
 ))
 model.add(keras.layers.Conv1D(
-    filters=3,
+    filters=5,
     kernel_size=1,
     # kernel_size=int(WINDOW_SIZE/2),
     activation='relu',
@@ -78,8 +78,8 @@ model.add(keras.layers.Conv1D(
 # ))
 model.add(keras.layers.Flatten())
 
-model.add(keras.layers.Dense(8, activation='relu'))
-model.add(keras.layers.Dense(3, activation='relu'))
+model.add(keras.layers.Dense(20, activation='relu'))
+model.add(keras.layers.Dense(10, activation='relu'))
 # model.add(keras.layers.Dense(SECOND_LAYER_NODES, activation='relu'))
 
 # model.add(keras.layers.Flatten(input_shape=(
