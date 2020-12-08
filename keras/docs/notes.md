@@ -31,3 +31,4 @@ dýpt gerir ekkert betra
   * 0.12 kl 20:14, heiti best_model_500_mjög gott nr 4
 
 model_40c-20c-10c-60-10.h5 lægst 0.20
+model_120c-120c-5c-10.h5 lægst 0.16

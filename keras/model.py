@@ -37,22 +37,42 @@ model.add(keras.layers.Conv1D(
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
-    filters=120,
-    kernel_size=6,
+    filters=30,
+    kernel_size=1,
     activation='relu',
     # padding='same',
 ))
 model.add(keras.layers.Conv1D(
-    filters=5,
-    kernel_size=9,
+    filters=120,
+    kernel_size=4,
+    activation='relu',
+    # padding='same',
+))
+model.add(keras.layers.Conv1D(
+    filters=120,
+    kernel_size=4,
     # kernel_size=int(WINDOW_SIZE/2),
     activation='relu',
     # padding='same',
 ))
+model.add(keras.layers.Conv1D(
+    filters=60,
+    kernel_size=2,
+    # kernel_size=int(WINDOW_SIZE/2),
+    activation='relu',
+    # padding='same',
+))
+# model.add(keras.layers.Conv1D(
+#     filters=26,
+#     kernel_size=11,
+#     # kernel_size=int(WINDOW_SIZE/2),
+#     activation='relu',
+#     # padding='same',
+# ))
 model.add(keras.layers.Flatten())
 
-# model.add(keras.layers.Dense(60, activation='relu'))
 model.add(keras.layers.Dense(10, activation='relu'))
+model.add(keras.layers.Dense(3, activation='relu'))
 # model.add(keras.layers.Dense(SECOND_LAYER_NODES, activation='relu'))
 
 # model.add(keras.layers.Flatten(input_shape=(
@@ -78,7 +98,9 @@ model.add(keras.layers.Dense(10, activation='relu'))
 # model.add(keras.layers.Dense(400, activation='relu'))
 # model.add(keras.layers.Dense(400, activation='relu'))
 
-# model.summary()
+if __name__ == '__main__':
+    model.summary()
+    exit()
 
 model.add(keras.layers.Dense(
     OUTPUT_NODES,
