@@ -29,3 +29,5 @@ dýpt gerir ekkert betra
 * 500->400->200->100 dropout 0 gefur minnst rsme 0.21, 0.19 með smá lærdómi á minni
   * 0.16 kl 20:14, heiti best_model_500_mjög gott nr 3
   * 0.12 kl 20:14, heiti best_model_500_mjög gott nr 4
+
+model_40c-20c-10c-60-10.h5 lægst 0.20

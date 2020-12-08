@@ -30,20 +30,20 @@ model = keras.models.Sequential()
 #     WINDOW_SIZE, number_of_possible_letters)))
 
 model.add(keras.layers.Conv1D(
-    filters=40,
+    filters=120,
     kernel_size=3,
     activation='relu',
     # padding='same',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
-    filters=20,
+    filters=120,
     kernel_size=6,
     activation='relu',
     # padding='same',
 ))
 model.add(keras.layers.Conv1D(
-    filters=10,
+    filters=5,
     kernel_size=9,
     # kernel_size=int(WINDOW_SIZE/2),
     activation='relu',
@@ -51,7 +51,7 @@ model.add(keras.layers.Conv1D(
 ))
 model.add(keras.layers.Flatten())
 
-model.add(keras.layers.Dense(60, activation='relu'))
+# model.add(keras.layers.Dense(60, activation='relu'))
 model.add(keras.layers.Dense(10, activation='relu'))
 # model.add(keras.layers.Dense(SECOND_LAYER_NODES, activation='relu'))
 
