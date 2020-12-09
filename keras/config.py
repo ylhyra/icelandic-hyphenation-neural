@@ -46,8 +46,8 @@ LOSS='mse'
 # LOSS='binary_crossentropy'
 OPTIMIZER='adam'
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=0.00005)
-# OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-5)
-# OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-5)
+OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-5)
+OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-5)
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-6)
 
 
