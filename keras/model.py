@@ -31,56 +31,31 @@ model = keras.models.Sequential()
 
 #
 model.add(keras.layers.Conv1D(
-    filters=60,
+    filters=120,
     kernel_size=3,
     activation='relu',
-    # padding='same',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
     filters=60,
-    kernel_size=3,  # A total of 5 letters at once
+    kernel_size=4,  # A total of 6 letters at once
     activation='relu',
-    # padding='same',
 ))
 model.add(keras.layers.Conv1D(
     filters=40,
-    kernel_size=3,  # A total of 7 letters at once
+    kernel_size=6,  # A total of 11 letters at once
     activation='relu',
-    # padding='same',
 ))
 model.add(keras.layers.Conv1D(
     filters=20,
     kernel_size=1,
-    # kernel_size=int(WINDOW_SIZE/2),
     activation='relu',
-    # padding='same',
-))
-model.add(keras.layers.Conv1D(
-    filters=16,
-    kernel_size=3,  # A total of 9 letters at once
-    activation='relu',
-    # padding='same',
-))
-model.add(keras.layers.Conv1D(
-    filters=16,
-    kernel_size=3,  # A total of 11 letters at once
-    # kernel_size=int(WINDOW_SIZE/2),
-    activation='relu',
-    # padding='same',
-))
-model.add(keras.layers.Conv1D(
-    filters=4,
-    kernel_size=1,
-    # kernel_size=int(WINDOW_SIZE/2),
-    activation='relu',
-    # padding='same',
 ))
 model.add(keras.layers.Flatten())
 
-model.add(keras.layers.Dense(10, activation='relu'))
-model.add(keras.layers.Dense(3, activation='relu'))
-model.add(keras.layers.Dense(3, activation='relu'))
+model.add(keras.layers.Dense(100, activation='relu'))
+model.add(keras.layers.Dense(100, activation='relu'))
+# model.add(keras.layers.Dense(3, activation='relu'))
 
 if __name__ == '__main__':
     model.summary()
@@ -95,11 +70,11 @@ model.add(keras.layers.Dense(
 def penalize_false_positives(y_pred, y_true):
     # K.sum(K.round(K.clip(Y_true - Y_pred, 0, 1)))
 
-    false_positives = K.sum(K.clip((y_true-y_pred), 0, 1))
+    false_positives_mse = K.mean(K.square(K.clip((y_true-y_pred), 0, 1)))
 
-    mse = tf.keras.losses.MeanSquaredError(y_true, y_pred).numpy()
+    mse = K.mean(K.square(y_pred-y_true))
 
-    out = false_positives * 100 + mse
+    out = false_positives_mse * 10 + mse
     # neg_y_true = 1 - y_true
     # neg_y_pred = 1 - y_pred
     # fp = K.sum(neg_y_true * y_pred)
