@@ -13,9 +13,9 @@ from random import randint
 from config import *
 
 
-# if(path.exists('models/models_latest.h5')):
+# if(path.exists('models/model_latest.h5')):
 #     print('Loading already-saved model (latest)...')
-#     model = keras.models.load_model('models/models_latest.h5')
+#     model = keras.models.load_model('models/model_latest.h5')
 # elif(path.exists('models/model_best.h5')):
 #     print('Loading already-saved model (best)...')
 #     model = keras.models.load_model('models/model_best.h5')
@@ -53,8 +53,8 @@ model.add(keras.layers.Conv1D(
 ))
 model.add(keras.layers.Flatten())
 
-model.add(keras.layers.Dense(100, activation='relu'))
-model.add(keras.layers.Dense(100, activation='relu'))
+model.add(keras.layers.Dense(80, activation='relu'))
+model.add(keras.layers.Dense(10, activation='relu'))
 # model.add(keras.layers.Dense(3, activation='relu'))
 
 if __name__ == '__main__':
@@ -67,27 +67,19 @@ model.add(keras.layers.Dense(
 ))
 
 
-def penalize_false_positives(y_pred, y_true):
-    # K.sum(K.round(K.clip(Y_true - Y_pred, 0, 1)))
+def penalize_false_positives(y_true, y_pred):
+    mse = K.mean(K.square(y_pred - y_true))
+    return false_positives(y_true, y_pred) * 100 + mse
 
-    false_positives_mse = K.mean(K.square(K.clip((y_true-y_pred), 0, 1)))
-
-    mse = K.mean(K.square(y_pred-y_true))
-
-    out = false_positives_mse * 10 + mse
-    # neg_y_true = 1 - y_true
-    # neg_y_pred = 1 - y_pred
-    # fp = K.sum(neg_y_true * y_pred)
-    # tn = K.sum(neg_y_true * neg_y_pred)
-    # specificity = tn / (tn + fp + K.epsilon())
-    return out
-
+def false_positives(y_true, y_pred):
+    return K.mean((K.clip((y_pred - y_true - 1), 0, 1)))
 
 model.compile(
     optimizer=OPTIMIZER,
     # loss=LOSS,
     loss=penalize_false_positives,
     metrics=[
+        false_positives,
         # 'accuracy',
         # keras.metrics.BinaryAccuracy(
         #     name="accuracy", dtype=None, threshold=0.5
@@ -101,9 +93,9 @@ model.compile(
     ]
 )
 
-if(path.exists('models/models_latest.h5')):
+if(path.exists('models/model_latest.h5')):
     print('Loading already-saved model (latest)...')
-    model.load_weights('models/models_latest.h5')
+    model.load_weights('models/model_latest.h5')
 elif(path.exists('models/model_best.h5')):
     print('Loading already-saved model (best)...')
     model.load_weights('models/model_best.h5')

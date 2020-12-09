@@ -16,7 +16,7 @@ MORPHEME_BREAK_INDICATOR_VALUE = 0.1
 
 # Training data
 
-TRAINING_SET = 0
+TRAINING_SET = 2
 
 if(TRAINING_SET == 0):
     FILE = 'data/wordlist.txt'

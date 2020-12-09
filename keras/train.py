@@ -155,7 +155,7 @@ if __name__ == '__main__':
             # get_lr_metric(OPTIMIZER),
             predictRandomWord(),
             # keras.callbacks.TensorBoard(write_images=True),
-            keras.callbacks.ModelCheckpoint('models/models_latest.h5'),
+            keras.callbacks.ModelCheckpoint('models/model_latest.h5'),
             # keras.callbacks.ModelCheckpoint('models/model_saved{epoch:08d}.h5', save_freq=5),
             ModelCheckpoint("models/model_best.h5", monitor='loss', verbose=0,
                             save_best_only=True, mode='auto',
