@@ -37,17 +37,17 @@ model.add(keras.layers.Conv1D(
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
-    filters=60,
+    filters=120,
     kernel_size=4,  # A total of 6 letters at once
     activation='relu',
 ))
 model.add(keras.layers.Conv1D(
-    filters=40,
+    filters=120,
     kernel_size=6,  # A total of 11 letters at once
     activation='relu',
 ))
 model.add(keras.layers.Conv1D(
-    filters=20,
+    filters=40,
     kernel_size=1,
     activation='relu',
 ))
@@ -68,18 +68,20 @@ model.add(keras.layers.Dense(
 
 
 def penalize_false_positives(y_true, y_pred):
+    fp = false_positives(y_true, y_pred)
     mse = K.mean(K.square(y_pred - y_true))
-    return false_positives(y_true, y_pred) * 100 + mse
+    # return fp * 100 + mse
+    return fp * 50 + mse
 
 def false_positives(y_true, y_pred):
-    return K.mean((K.clip((y_pred - y_true - 1), 0, 1)))
+    return K.mean((K.clip((y_pred - y_true - 0.98), 0, 1)))
 
 model.compile(
     optimizer=OPTIMIZER,
     # loss=LOSS,
     loss=penalize_false_positives,
     metrics=[
-        false_positives,
+        # false_positives,
         # 'accuracy',
         # keras.metrics.BinaryAccuracy(
         #     name="accuracy", dtype=None, threshold=0.5
