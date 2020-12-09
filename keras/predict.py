@@ -6,7 +6,7 @@ import sys
 import numpy as np
 from config import *
 import dataset
-# from model import model
+from model import model
 
 # .backend.set_learning_phase(0)
 
@@ -32,6 +32,6 @@ def predict(word, model):
 
 if __name__ == '__main__':
     word = sys.argv[1]
-    prediction = predict(word)
+    prediction = predict(word, model)
     print('Input:', word)
     print('Hyphenation:', prediction)
