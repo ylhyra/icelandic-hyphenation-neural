@@ -143,7 +143,7 @@ if(TRAINING_SET == 0 or TRAINING_SET == 4):
 if __name__ == '__main__':
     start_time = time()
     print('Training model...')
-    batch_size = 512 / 2
+    batch_size = 512 #/ 2
     model.fit(
         get_batch(),
         batch_size=batch_size,

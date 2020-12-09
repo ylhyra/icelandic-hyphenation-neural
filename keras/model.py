@@ -71,7 +71,7 @@ def penalize_false_positives(y_true, y_pred):
     fp = false_positives(y_true, y_pred)
     mse = K.mean(K.square(y_pred - y_true))
     # return fp * 100 + mse
-    return fp * 50 + mse
+    return fp * 40 + mse
 
 def false_positives(y_true, y_pred):
     return K.mean((K.clip((y_pred - y_true - 0.98), 0, 1)))
