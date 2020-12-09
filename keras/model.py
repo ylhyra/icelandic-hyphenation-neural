@@ -39,13 +39,13 @@ model.add(keras.layers.Conv1D(
 ))
 model.add(keras.layers.Conv1D(
     filters=60,
-    kernel_size=3, # A total of 5 letters at once
+    kernel_size=3,  # A total of 5 letters at once
     activation='relu',
     # padding='same',
 ))
 model.add(keras.layers.Conv1D(
     filters=40,
-    kernel_size=3, # A total of 7 letters at once
+    kernel_size=3,  # A total of 7 letters at once
     activation='relu',
     # padding='same',
 ))
@@ -58,7 +58,7 @@ model.add(keras.layers.Conv1D(
 ))
 model.add(keras.layers.Conv1D(
     filters=16,
-    kernel_size=3, # A total of 9 letters at once
+    kernel_size=3,  # A total of 9 letters at once
     activation='relu',
     # padding='same',
 ))
@@ -91,9 +91,27 @@ model.add(keras.layers.Dense(
     activation='linear'
 ))
 
+
+def penalize_false_positives(y_pred, y_true):
+    # K.sum(K.round(K.clip(Y_true - Y_pred, 0, 1)))
+
+    false_positives = K.sum(K.clip((y_true-y_pred), 0, 1))
+
+    mse = tf.keras.losses.MeanSquaredError(y_true, y_pred).numpy()
+
+    out = false_positives * 100 + mse
+    # neg_y_true = 1 - y_true
+    # neg_y_pred = 1 - y_pred
+    # fp = K.sum(neg_y_true * y_pred)
+    # tn = K.sum(neg_y_true * neg_y_pred)
+    # specificity = tn / (tn + fp + K.epsilon())
+    return out
+
+
 model.compile(
     optimizer=OPTIMIZER,
-    loss=LOSS,
+    # loss=LOSS,
+    loss=penalize_false_positives,
     metrics=[
         # 'accuracy',
         # keras.metrics.BinaryAccuracy(
