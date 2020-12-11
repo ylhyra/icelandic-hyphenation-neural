@@ -10,9 +10,12 @@ WINDOW_SIZE = 22 # Must be an even number
 MAJOR_HYPHENATION_INDICATOR = '-'
 MINOR_HYPHENATION_INDICATOR = '.'
 MORPHEME_BREAK_INDICATOR = '|'
-MAJOR_HYPHENATION_INDICATOR_VALUE = 1
+MAJOR_HYPHENATION_INDICATOR_VALUE = 1.0
 MINOR_HYPHENATION_INDICATOR_VALUE = 0.55
 MORPHEME_BREAK_INDICATOR_VALUE = 0.1
+# TEMP!!
+MINOR_HYPHENATION_INDICATOR_VALUE = 1.0
+MORPHEME_BREAK_INDICATOR_VALUE = 1.0
 
 # Training data
 
@@ -48,7 +51,7 @@ OPTIMIZER='adam'
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-5)
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-5)
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-6)
-OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-6)
+# OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-6)
 
 
 # Noise & dropout

@@ -4,7 +4,7 @@ from model import model
 import numpy as np
 from config import *
 
-BATCH_SIZE = 5000
+BATCH_SIZE = 10000
 count = 0
 to_write = ''
 f = open('list_tmp.txt')
@@ -28,12 +28,14 @@ for line in f:
                 for index, char in enumerate(_word):
                     out += char
                     if index + 1 < len(_word):
-                        if predicted[current_index_in_prediction][0] > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.3:
+                        if predicted[current_index_in_prediction][0] > 0.3:
                             out += dataset.MAJOR_HYPHENATION_INDICATOR
-                        elif predicted[current_index_in_prediction][0] > MINOR_HYPHENATION_INDICATOR_VALUE - 0.1:
-                            out += dataset.MINOR_HYPHENATION_INDICATOR
-                        elif predicted[current_index_in_prediction][0] >  MORPHEME_BREAK_INDICATOR_VALUE - 0.1:
-                            out += dataset.MORPHEME_BREAK_INDICATOR
+                        # if predicted[current_index_in_prediction][0] > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.3:
+                        #     out += dataset.MAJOR_HYPHENATION_INDICATOR
+                        # elif predicted[current_index_in_prediction][0] > MINOR_HYPHENATION_INDICATOR_VALUE - 0.1:
+                        #     out += dataset.MINOR_HYPHENATION_INDICATOR
+                        # elif predicted[current_index_in_prediction][0] >  MORPHEME_BREAK_INDICATOR_VALUE - 0.1:
+                        #     out += dataset.MORPHEME_BREAK_INDICATOR
                         current_index_in_prediction = current_index_in_prediction + 1
             else:
                 out = _word

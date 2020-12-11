@@ -62,6 +62,9 @@ class predictRandomWord(keras.callbacks.Callback):
 class Metrics(keras.callbacks.Callback):
     def on_epoch_end(self, batch, logs=None):
         print()
+        # global current_epoch
+        # current_epoch = current_epoch + 1
+
         x_validation, y_validation = process_data(words_to_take_as_an_example)
 
         y_predict = self.model.predict(x_validation)
@@ -73,6 +76,7 @@ class Metrics(keras.callbacks.Callback):
         correct_hyphenation_type = 0
         hyphen_points_found = 0
         false_positives_printed = []
+
         for index, item in enumerate(y_validation):
             corr = y_validation[index]
             pred = y_predict[index][0]

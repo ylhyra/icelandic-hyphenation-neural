@@ -9,6 +9,7 @@ import os.path
 from os import path
 import keras.backend as K
 from random import randint
+# from train import penalize_false_negatives
 
 from config import *
 
@@ -67,19 +68,35 @@ model.add(keras.layers.Dense(
 ))
 
 
+
+
+# current_epoch = 1
+
 def penalize_false_positives(y_true, y_pred):
     fp = false_positives(y_true, y_pred)
     mse = K.mean(K.square(y_pred - y_true))
     # return fp * 100 + mse
-    return fp * 40 + mse
+    return fp * (10) + mse
 
 def false_positives(y_true, y_pred):
     return K.mean((K.clip((y_pred - y_true - 0.98), 0, 1)))
 
+def penalize_false_negatives(y_true, y_pred):
+    fn = false_negatives(y_true, y_pred)
+    mse = K.mean(K.square(y_pred - y_true))
+    # return fp * 100 + mse
+    return fn * (10) + mse
+def false_negatives(y_true, y_pred):
+    return K.mean((K.clip((y_true - y_pred - 0.98), 0, 1)))
+
+
+
+
 model.compile(
     optimizer=OPTIMIZER,
     # loss=LOSS,
-    loss=penalize_false_positives,
+    # loss=penalize_false_positives,
+    loss=penalize_false_negatives, #TEMP!
     metrics=[
         # false_positives,
         # 'accuracy',
