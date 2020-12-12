@@ -7,8 +7,7 @@ import math
 from keras.callbacks import ModelCheckpoint
 from dataset import int_to_char
 from dataset import process_word
-from model import model
-from model import IncreaseEpochNumber
+from model import model, IncreaseEpochNumber
 from time import time
 import numpy as np
 import keras
@@ -138,7 +137,7 @@ class Metrics(keras.callbacks.Callback):
 # Limit size of epochs for the large files
 epoch_size_multiplier = 1
 if(TRAINING_SET == 0 or TRAINING_SET == 4):
-    epoch_size_multiplier = epoch_size_multiplier / 10
+    epoch_size_multiplier = epoch_size_multiplier / 5
 
 # def get_lr_metric(optimizer):
 #     def lr(y_true, y_pred):
