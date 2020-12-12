@@ -42,11 +42,11 @@ model.add(keras.layers.Conv1D(
     kernel_size=4,  # A total of 6 letters at once
     activation='relu',
 ))
-model.add(keras.layers.Conv1D(
-    filters=120,
-    kernel_size=6,  # A total of 11 letters at once
-    activation='relu',
-))
+# model.add(keras.layers.Conv1D(
+#     filters=120,
+#     kernel_size=6,  # A total of 11 letters at once
+#     activation='relu',
+# ))
 model.add(keras.layers.Conv1D(
     filters=40,
     kernel_size=1,
@@ -70,22 +70,29 @@ model.add(keras.layers.Dense(
 
 
 
-# current_epoch = 1
+current_epoch = 1
+    
+class IncreaseEpochNumber(keras.callbacks.Callback):
+    def on_epoch_end(self, batch, logs=None):
+        global current_epoch
+        current_epoch = current_epoch + 1
 
 def penalize_false_positives(y_true, y_pred):
+    global current_epoch
     fp = false_positives(y_true, y_pred)
     mse = K.mean(K.square(y_pred - y_true))
     # return fp * 100 + mse
-    return fp * (10) + mse
+    return fp * (10 + 2 * current_epoch) + mse
 
 def false_positives(y_true, y_pred):
     return K.mean((K.clip((y_pred - y_true - 0.98), 0, 1)))
 
 def penalize_false_negatives(y_true, y_pred):
+    global current_epoch
     fn = false_negatives(y_true, y_pred)
     mse = K.mean(K.square(y_pred - y_true))
     # return fp * 100 + mse
-    return fn * (10) + mse
+    return fn * (10 + 2 * current_epoch) + mse
 def false_negatives(y_true, y_pred):
     return K.mean((K.clip((y_true - y_pred - 0.98), 0, 1)))
 

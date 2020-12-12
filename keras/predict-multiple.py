@@ -28,7 +28,7 @@ for line in f:
                 for index, char in enumerate(_word):
                     out += char
                     if index + 1 < len(_word):
-                        if predicted[current_index_in_prediction][0] > 0.3:
+                        if predicted[current_index_in_prediction][0] > -0.05:
                             out += dataset.MAJOR_HYPHENATION_INDICATOR
                         # if predicted[current_index_in_prediction][0] > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.3:
                         #     out += dataset.MAJOR_HYPHENATION_INDICATOR
