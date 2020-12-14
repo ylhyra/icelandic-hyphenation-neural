@@ -27,36 +27,54 @@ from config import *
 print('Building model...')
 
 model = keras.models.Sequential()
-# model.add(keras.layers.Flatten(input_shape=(
-#     WINDOW_SIZE, number_of_possible_letters)))
 
-#
 model.add(keras.layers.Conv1D(
-    filters=120,
+    filters=30,
     kernel_size=3,
     activation='relu',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
+    filters=50,
+    kernel_size=3,  # A total of 5 letters at once
+    activation='relu',
+))
+model.add(keras.layers.Conv1D(
     filters=120,
-    kernel_size=4,  # A total of 6 letters at once
+    kernel_size=3,  # A total of 7 letters at once
     activation='relu',
 ))
 # model.add(keras.layers.Conv1D(
+#     filters=90,
+#     kernel_size=3,  # A total of 9 letters at once
+#     activation='relu',
+# ))
+# model.add(keras.layers.Conv1D(
 #     filters=120,
-#     kernel_size=6,  # A total of 11 letters at once
+#     kernel_size=3,  # A total of 11 letters at once
+#     activation='relu',
+# ))
+# model.add(keras.layers.Conv1D(
+#     filters=30,
+#     kernel_size=1,
 #     activation='relu',
 # ))
 model.add(keras.layers.Conv1D(
-    filters=40,
+    filters=10,
     kernel_size=1,
     activation='relu',
 ))
+# model.add(keras.layers.Conv1D(
+#     filters=3,
+#     kernel_size=1,
+#     activation='relu',
+# ))
 model.add(keras.layers.Flatten())
 
-model.add(keras.layers.Dense(80, activation='relu'))
+model.add(keras.layers.Dense(40, activation='relu'))
+model.add(keras.layers.Dense(40, activation='relu'))
+# model.add(keras.layers.Dense(100, activation='relu'))
 model.add(keras.layers.Dense(10, activation='relu'))
-# model.add(keras.layers.Dense(3, activation='relu'))
 
 if __name__ == '__main__':
     model.summary()
@@ -83,28 +101,28 @@ def penalize_false_positives(y_true, y_pred):
     fp = false_positives(y_true, y_pred)
     mse = K.mean(K.square(y_pred - y_true))
     # return fp * 100 + mse
-    return fp * (50 + 2 * current_epoch) + mse
+    return fp * 30 + mse
+    # return fp + mse
+    # return fp * (10 + 2 * current_epoch) + mse
 
 def false_positives(y_true, y_pred):
     return K.mean((K.clip((y_pred - y_true - 0.98), 0, 1)))
 
-def penalize_false_negatives(y_true, y_pred):
-    global current_epoch
-    fn = false_negatives(y_true, y_pred)
-    mse = K.mean(K.square(y_pred - y_true))
-    # return fp * 100 + mse
-    return fn * (50 + 2 * current_epoch) + mse
-def false_negatives(y_true, y_pred):
-    return K.mean((K.clip((y_true - y_pred - 0.98), 0, 1)))
-
-
+# def penalize_false_negatives(y_true, y_pred):
+#     global current_epoch
+#     fn = false_negatives(y_true, y_pred)
+#     mse = K.mean(K.square(y_pred - y_true))
+#     # return fp * 100 + mse
+#     return fn * (50 + 2 * current_epoch) + mse
+# def false_negatives(y_true, y_pred):
+#     return K.mean((K.clip((y_true - y_pred - 0.98), 0, 1)))
 
 
 model.compile(
     optimizer=OPTIMIZER,
     # loss=LOSS,
-    # loss=penalize_false_positives,
-    loss=penalize_false_negatives, #TEMP!
+    loss=penalize_false_positives,
+    # loss=penalize_false_negatives, #TEMP!
     metrics=[
         # false_positives,
         # 'accuracy',

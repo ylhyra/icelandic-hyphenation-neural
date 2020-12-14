@@ -1,6 +1,7 @@
 # Originally written by Markus Siemens (MIT; https://github.com/msiemens/HypheNN-de)
 # Changes by Egill
 
+import re
 from config import *
 from predict import predict
 import math
@@ -32,15 +33,14 @@ words_to_take_as_an_example = []
 
 total_samples_in_dataset = sum(1 for line in open(FILE))
 
-
 def get_batch():
     while 1:
         f = open(FILE)
         for line in f:
-            if(len(line.strip()) >= 2):
+            if(len(line.strip()) >= 2 and not re.search('[^abcdefghijklmnoprstuvwxyzáæéíðóöúýþ.|-]', line.strip())):
 
                 # Not necessary, just here to show examples after each epoch
-                if(len(words_to_take_as_an_example) < 50):
+                if(len(words_to_take_as_an_example) < 200):
                     if(random.random() < 0.2):
                         words_to_take_as_an_example.append(line.strip())
 
@@ -137,7 +137,9 @@ class Metrics(keras.callbacks.Callback):
 # Limit size of epochs for the large files
 epoch_size_multiplier = 1
 if(TRAINING_SET == 0 or TRAINING_SET == 4):
-    epoch_size_multiplier = epoch_size_multiplier / 5
+    epoch_size_multiplier = epoch_size_multiplier / 20
+if(TRAINING_SET == 2):
+    epoch_size_multiplier = epoch_size_multiplier * 200
 
 # def get_lr_metric(optimizer):
 #     def lr(y_true, y_pred):
@@ -147,7 +149,7 @@ if(TRAINING_SET == 0 or TRAINING_SET == 4):
 if __name__ == '__main__':
     start_time = time()
     print('Training model...')
-    batch_size = 512 #/ 2
+    batch_size = 512 / 2
     model.fit(
         get_batch(),
         batch_size=batch_size,
@@ -166,11 +168,11 @@ if __name__ == '__main__':
                             save_best_only=True, mode='auto',
                             # save_freq=10
                             ),
-            tf.keras.callbacks.EarlyStopping(monitor='rmse', patience=5, restore_best_weights = True),
+            tf.keras.callbacks.EarlyStopping(monitor='loss', patience=5, restore_best_weights = True),
             # tf.keras.callbacks.ReduceLROnPlateau(
             #     monitor="loss",
             #     factor=0.1,
-            #     patience=6,
+            #     patience=4,
             #     verbose=1,
             #     mode="auto",
             #     min_delta=1E-7,

@@ -28,8 +28,20 @@ for line in f:
                 for index, char in enumerate(_word):
                     out += char
                     if index + 1 < len(_word):
-                        if predicted[current_index_in_prediction][0] > -0.05:
-                            out += dataset.MAJOR_HYPHENATION_INDICATOR
+                        if predicted[current_index_in_prediction][0] > 0.9:
+                            out += '9'
+                        elif predicted[current_index_in_prediction][0] > 0.8:
+                            out += '8'
+                        elif predicted[current_index_in_prediction][0] > 0.6:
+                            out += '6'
+                        elif predicted[current_index_in_prediction][0] > 0.4:
+                            out += '4'
+                        elif predicted[current_index_in_prediction][0] > 0.3:
+                            out += '3'
+                        elif predicted[current_index_in_prediction][0] > 0.2:
+                            out += '2'
+                        elif predicted[current_index_in_prediction][0] > -0.1:
+                            out += '0'
                         # if predicted[current_index_in_prediction][0] > MAJOR_HYPHENATION_INDICATOR_VALUE - 0.3:
                         #     out += dataset.MAJOR_HYPHENATION_INDICATOR
                         # elif predicted[current_index_in_prediction][0] > MINOR_HYPHENATION_INDICATOR_VALUE - 0.1:
