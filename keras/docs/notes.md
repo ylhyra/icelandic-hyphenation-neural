@@ -32,3 +32,6 @@ dýpt gerir ekkert betra
 
 model_40c-20c-10c-60-10.h5 lægst 0.20
 model_120c-120c-5c-10.h5 lægst 0.16
+
+# Tilraunir 2
+Með false positive á 50 er að leita að einhverju sem kemur loss undir 0.10

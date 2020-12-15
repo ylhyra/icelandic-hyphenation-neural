@@ -40,7 +40,7 @@ model.add(keras.layers.Conv1D(
     activation='relu',
 ))
 model.add(keras.layers.Conv1D(
-    filters=120,
+    filters=70,
     kernel_size=3,  # A total of 7 letters at once
     activation='relu',
 ))
@@ -60,7 +60,7 @@ model.add(keras.layers.Conv1D(
 #     activation='relu',
 # ))
 model.add(keras.layers.Conv1D(
-    filters=10,
+    filters=30,
     kernel_size=1,
     activation='relu',
 ))
