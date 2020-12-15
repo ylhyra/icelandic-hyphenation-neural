@@ -80,10 +80,7 @@ if __name__ == '__main__':
     model.summary()
     exit()
 
-model.add(keras.layers.Dense(
-    OUTPUT_NODES,
-    activation='linear'
-))
+model.add(keras.layers.Dense(1,activation='linear'))
 
 
 
