@@ -35,3 +35,5 @@ model_120c-120c-5c-10.h5 lægst 0.16
 
 # Tilraunir 2
 Með false positive á 50 er að leita að einhverju sem kemur loss undir 0.10
+
+14a35795 - loss: 0.08 rmse 0.25

@@ -136,8 +136,8 @@ class Metrics(keras.callbacks.Callback):
 
 # Limit size of epochs for the large files
 epoch_size_multiplier = 1
-if(TRAINING_SET == 0 or TRAINING_SET == 4):
-    epoch_size_multiplier = epoch_size_multiplier / 3
+# if(TRAINING_SET == 0 or TRAINING_SET == 4):
+#     epoch_size_multiplier = epoch_size_multiplier / 3
 if(TRAINING_SET == 2):
     epoch_size_multiplier = epoch_size_multiplier * 200
 
