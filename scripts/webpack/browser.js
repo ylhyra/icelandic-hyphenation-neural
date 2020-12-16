@@ -37,7 +37,7 @@ module.exports = {
 
   // this should go into the webpack.dev.js
   devServer: {
-    //contentBase: path.join(__dirname, "/dist"),
+    contentBase: path.join(__dirname, "/../../build"),
     compress: true,
     port: 3100,
     hot: true,

@@ -52,6 +52,7 @@ def get_batch():
 class predictRandomWord(keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs=None):
         # print()
+        print(predict('bandstrikum', self.model))
         print(predict('flugvallarsvæði', self.model))
         print(predict('forsætisráðherrabílstjórarnir', self.model))
         print(predict('líffærafræðilegar', self.model))
@@ -136,8 +137,8 @@ class Metrics(keras.callbacks.Callback):
 
 # Limit size of epochs for the large files
 epoch_size_multiplier = 1
-# if(TRAINING_SET == 0 or TRAINING_SET == 4):
-#     epoch_size_multiplier = epoch_size_multiplier / 3
+if(TRAINING_SET == 0 or TRAINING_SET == 4):
+    epoch_size_multiplier = epoch_size_multiplier / 6
 if(TRAINING_SET == 2):
     epoch_size_multiplier = epoch_size_multiplier * 200
 

@@ -29,49 +29,39 @@ print('Building model...')
 model = keras.models.Sequential()
 
 model.add(keras.layers.Conv1D(
-    filters=30,
+    filters=120,
     kernel_size=3,
     activation='relu',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
-    filters=50,
-    kernel_size=3,  # A total of 5 letters at once
+    filters=600,
+    kernel_size=4,  # A total of 7 letters at once
     activation='relu',
 ))
 model.add(keras.layers.Conv1D(
-    filters=70,
-    kernel_size=3,  # A total of 7 letters at once
+    filters=1000,
+    kernel_size=4,  # A total of 11 letters at once
     activation='relu',
 ))
-# model.add(keras.layers.Conv1D(
-#     filters=90,
-#     kernel_size=3,  # A total of 9 letters at once
-#     activation='relu',
-# ))
-# model.add(keras.layers.Conv1D(
-#     filters=120,
-#     kernel_size=3,  # A total of 11 letters at once
-#     activation='relu',
-# ))
-# model.add(keras.layers.Conv1D(
-#     filters=30,
-#     kernel_size=1,
-#     activation='relu',
-# ))
 model.add(keras.layers.Conv1D(
-    filters=30,
+    filters=100,
     kernel_size=1,
     activation='relu',
 ))
 # model.add(keras.layers.Conv1D(
-#     filters=3,
+#     filters=50,
 #     kernel_size=1,
 #     activation='relu',
 # ))
+model.add(keras.layers.Conv1D(
+    filters=10,
+    kernel_size=1,
+    activation='relu',
+))
 model.add(keras.layers.Flatten())
 
-model.add(keras.layers.Dense(40, activation='relu'))
+# model.add(keras.layers.Dense(80, activation='relu'))
 model.add(keras.layers.Dense(40, activation='relu'))
 # model.add(keras.layers.Dense(100, activation='relu'))
 model.add(keras.layers.Dense(10, activation='relu'))
@@ -103,7 +93,8 @@ def penalize_false_positives(y_true, y_pred):
     # return fp * (10 + 2 * current_epoch) + mse
 
 def false_positives(y_true, y_pred):
-    return K.mean((K.clip((y_pred - y_true - 0.98), 0, 1)))
+    return K.mean((K.clip((y_pred - y_true - 1.3), 0, 0.8)))
+    # return K.mean((K.clip((y_pred - y_true - 0.98), 0, 1)))
 
 # def penalize_false_negatives(y_true, y_pred):
 #     global current_epoch

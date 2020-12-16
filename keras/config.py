@@ -43,7 +43,7 @@ LOSS='mse'
 OPTIMIZER='adam'
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-4)
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-5)
-OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-5)
+# OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-5)
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-6)
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-6)
 

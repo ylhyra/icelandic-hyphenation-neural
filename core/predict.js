@@ -78,3 +78,5 @@ export const predict = async(array_of_words, options) => {
 
   return cache
 }
+
+console.log('haha')
