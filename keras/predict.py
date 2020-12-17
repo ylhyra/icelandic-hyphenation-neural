@@ -25,7 +25,7 @@ def predict(word, model):
                 out += '\033[91m'+MINOR_HYPHENATION_INDICATOR+'\033[0m'
             elif predicted[index][0] > MORPHEME_BREAK_INDICATOR_VALUE - 0.15:
                 out += '\033[91m'+MORPHEME_BREAK_INDICATOR+'\033[0m'
-            if(predicted[index][0] > 0):
+            if(predicted[index][0] >= 0):
                 out += '\033[91m'+str(int(round(predicted[index][0] * 10)))+'\033[0m'
     return out
 

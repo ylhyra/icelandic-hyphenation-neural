@@ -29,23 +29,28 @@ print('Building model...')
 model = keras.models.Sequential()
 
 model.add(keras.layers.Conv1D(
-    filters=120,
+    filters=30,
     kernel_size=3,
     activation='relu',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
-    filters=600,
+    filters=180,
     kernel_size=4,  # A total of 7 letters at once
     activation='relu',
 ))
 model.add(keras.layers.Conv1D(
-    filters=1000,
+    filters=1500,
     kernel_size=4,  # A total of 11 letters at once
     activation='relu',
 ))
 model.add(keras.layers.Conv1D(
-    filters=100,
+    filters=200,
+    kernel_size=1,
+    activation='relu',
+))
+model.add(keras.layers.Conv1D(
+    filters=80,
     kernel_size=1,
     activation='relu',
 ))
@@ -55,14 +60,14 @@ model.add(keras.layers.Conv1D(
 #     activation='relu',
 # ))
 model.add(keras.layers.Conv1D(
-    filters=10,
+    filters=8,
     kernel_size=1,
     activation='relu',
 ))
 model.add(keras.layers.Flatten())
 
 # model.add(keras.layers.Dense(80, activation='relu'))
-model.add(keras.layers.Dense(40, activation='relu'))
+# model.add(keras.layers.Dense(40, activation='relu'))
 # model.add(keras.layers.Dense(100, activation='relu'))
 model.add(keras.layers.Dense(10, activation='relu'))
 
@@ -84,17 +89,20 @@ class IncreaseEpochNumber(keras.callbacks.Callback):
         # print('epoch')
 
 def penalize_false_positives(y_true, y_pred):
-    global current_epoch
-    fp = false_positives(y_true, y_pred)
-    mse = K.mean(K.square(y_pred - y_true))
-    # return fp * 100 + mse
-    return fp * 30 + mse
-    # return fp + mse
-    # return fp * (10 + 2 * current_epoch) + mse
+    return false_positives(y_true, y_pred) * 20 + mse(y_true, y_pred)
 
 def false_positives(y_true, y_pred):
     return K.mean((K.clip((y_pred - y_true - 1.3), 0, 0.8)))
-    # return K.mean((K.clip((y_pred - y_true - 0.98), 0, 1)))
+
+# def mae(y_true, y_pred):
+#     return K.mean(K.abs(K.clip(y_pred, -1, 1) - y_true))
+
+def mse(y_true, y_pred):
+    return K.mean(K.square(y_pred - y_true))
+    # return K.mean(K.square(K.clip(y_pred, -10, 1) - y_true))
+
+def rmse(y_true, y_pred):
+    return K.sqrt(mse(y_true, y_pred))
 
 # def penalize_false_negatives(y_true, y_pred):
 #     global current_epoch
@@ -109,7 +117,9 @@ def false_positives(y_true, y_pred):
 model.compile(
     optimizer=OPTIMIZER,
     # loss=LOSS,
+    # loss=mse,
     loss=penalize_false_positives,
+    # loss=penalize_false_positives,
     # loss=penalize_false_negatives, #TEMP!
     metrics=[
         # false_positives,
@@ -117,9 +127,11 @@ model.compile(
         # keras.metrics.BinaryAccuracy(
         #     name="accuracy", dtype=None, threshold=0.5
         # ),
-        tf.keras.metrics.RootMeanSquaredError(
-            name="rmse", dtype=None
-        )
+        # mae,
+        rmse,
+        # tf.keras.metrics.RootMeanSquaredError(
+        #     name="rmse", dtype=None
+        # )
         # keras.metrics.Precision(
         #     name="precision", dtype=None, # thresholds=0.5
         # ),
