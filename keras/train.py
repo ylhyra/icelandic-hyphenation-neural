@@ -82,7 +82,8 @@ class Metrics(keras.callbacks.Callback):
             corr = y_validation[index]
             pred = y_predict[index][0]
             if(corr < 0 and pred > 0):
-                false_positives += 1
+                if(pred > 0.35):
+                    false_positives += 1
                 if(pred > MORPHEME_BREAK_INDICATOR_VALUE):
                     out = ''
                     for row in x_validation[index]:
@@ -150,7 +151,7 @@ if(TRAINING_SET == 2):
 if __name__ == '__main__':
     start_time = time()
     print('Training model...')
-    batch_size = 512 * 2 # / 232
+    batch_size = 512 * 4 # / 232
     # batch_size = 32
     model.fit(
         get_batch(),

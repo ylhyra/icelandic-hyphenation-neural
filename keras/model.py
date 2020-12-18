@@ -9,7 +9,7 @@ import os.path
 from os import path
 import keras.backend as K
 from random import randint
-# from train import penalize_false_negatives
+from keras.regularizers import l1
 
 from config import *
 
@@ -29,47 +29,25 @@ print('Building model...')
 model = keras.models.Sequential()
 
 model.add(keras.layers.Conv1D(
-    filters=30,
+    filters=20,
     kernel_size=3,
     activation='relu',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
-    filters=180,
-    kernel_size=4,  # A total of 7 letters at once
+    filters=30,
+    kernel_size=2,
     activation='relu',
-))
-model.add(keras.layers.Conv1D(
-    filters=1500,
-    kernel_size=4,  # A total of 11 letters at once
-    activation='relu',
-))
-model.add(keras.layers.Conv1D(
-    filters=200,
-    kernel_size=1,
-    activation='relu',
-))
-model.add(keras.layers.Conv1D(
-    filters=80,
-    kernel_size=1,
-    activation='relu',
-))
-# model.add(keras.layers.Conv1D(
-#     filters=50,
-#     kernel_size=1,
-#     activation='relu',
-# ))
-model.add(keras.layers.Conv1D(
-    filters=8,
-    kernel_size=1,
-    activation='relu',
+    input_shape=(WINDOW_SIZE, number_of_possible_letters),
+    # kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)),
 ))
 model.add(keras.layers.Flatten())
 
-# model.add(keras.layers.Dense(80, activation='relu'))
-# model.add(keras.layers.Dense(40, activation='relu'))
-# model.add(keras.layers.Dense(100, activation='relu'))
-model.add(keras.layers.Dense(10, activation='relu'))
+model.add(keras.layers.Dense(400, activation='relu', kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)))
+model.add(keras.layers.Dense(100, activation='relu', kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)))
+model.add(keras.layers.Dense(100, activation='relu', kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)))
+model.add(keras.layers.Dense(100, activation='relu', kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)))
+model.add(keras.layers.Dense(10, activation='relu', kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)))
 
 if __name__ == '__main__':
     model.summary()

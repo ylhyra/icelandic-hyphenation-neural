@@ -19,7 +19,7 @@ MORPHEME_BREAK_INDICATOR_VALUE = 0.1
 
 # Training data
 
-TRAINING_SET = 0
+TRAINING_SET = 1
 
 if(TRAINING_SET == 0):
     FILE = 'data/wordlist.txt'
@@ -42,7 +42,7 @@ LOSS='mse'
 # LOSS='binary_crossentropy'
 OPTIMIZER='adam'
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-4)
-# OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-5)
+OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-5)
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-5)
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=5E-6)
 # OPTIMIZER=keras.optimizers.Adam(learning_rate=1E-6)
