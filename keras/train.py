@@ -137,8 +137,8 @@ class Metrics(keras.callbacks.Callback):
 
 # Limit size of epochs for the large files
 epoch_size_multiplier = 1
-if(TRAINING_SET == 0 or TRAINING_SET == 4):
-    epoch_size_multiplier = epoch_size_multiplier / 3
+# if(TRAINING_SET == 0 or TRAINING_SET == 4):
+#     epoch_size_multiplier = epoch_size_multiplier / 3
 if(TRAINING_SET == 2):
     epoch_size_multiplier = epoch_size_multiplier * 200
 
@@ -150,7 +150,8 @@ if(TRAINING_SET == 2):
 if __name__ == '__main__':
     start_time = time()
     print('Training model...')
-    batch_size = 512 / 2
+    batch_size = 512 * 2 # / 232
+    # batch_size = 32
     model.fit(
         get_batch(),
         batch_size=batch_size,
@@ -169,7 +170,7 @@ if __name__ == '__main__':
                             save_best_only=True, mode='auto',
                             # save_freq=10
                             ),
-            tf.keras.callbacks.EarlyStopping(monitor='loss', patience=5, restore_best_weights = True),
+            tf.keras.callbacks.EarlyStopping(monitor='loss', patience=10, restore_best_weights = True),
             # tf.keras.callbacks.ReduceLROnPlateau(
             #     monitor="loss",
             #     factor=0.1,
