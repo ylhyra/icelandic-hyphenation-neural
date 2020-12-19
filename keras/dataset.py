@@ -8,6 +8,7 @@ from random import random
 from random import randint
 import numpy as np
 from config import *
+import re
 
 char_to_int = {c: i for i, c in enumerate(chars)}
 int_to_char = {v: k for k, v in char_to_int.items()}
@@ -32,9 +33,9 @@ def process_data(words):
 
 def process_word(word, training=True):
 
-    # # Normalize "-" to "." when
+    # # Normalize "-" to "." when it's just one
     # if '-' in word and not '.' in word:
-    #     word = word.replace('-','.')
+    #     word = re.sub(r'-','.', word)
 
 
     X = []

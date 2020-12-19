@@ -12,4 +12,10 @@ rm -f wordlist.txt
 cat real_data/*.txt junk_data/*.txt \
   > wordlist.txt
 
+
+for i in {1..7}; do 
+  cat real_data/hyphenation.txt >> wordlist.txt
+done
+
+
 node --max-old-space-size=4096 randomize.js

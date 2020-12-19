@@ -43,11 +43,12 @@ model.add(keras.layers.Conv1D(
 ))
 model.add(keras.layers.Flatten())
 
-model.add(keras.layers.Dense(400, activation='relu', kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)))
-model.add(keras.layers.Dense(100, activation='relu', kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)))
-model.add(keras.layers.Dense(100, activation='relu', kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)))
-model.add(keras.layers.Dense(100, activation='relu', kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)))
-model.add(keras.layers.Dense(10, activation='relu', kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)))
+model.add(keras.layers.Dense(400, activation='relu'))
+model.add(keras.layers.Dense(400, activation='relu'))
+model.add(keras.layers.Dense(100, activation='relu'))
+model.add(keras.layers.Dense(100, activation='relu'))
+model.add(keras.layers.Dense(100, activation='relu'))
+model.add(keras.layers.Dense(10, activation='relu'))
 
 if __name__ == '__main__':
     model.summary()

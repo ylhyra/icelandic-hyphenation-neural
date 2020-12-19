@@ -31,7 +31,7 @@ def process_data(words):
 
 words_to_take_as_an_example = []
 
-total_samples_in_dataset = sum(1 for line in open(FILE))
+total_samples_in_dataset = sum(1 for line in open(FILE, encoding="utf8", errors='ignore'))
 
 def get_batch():
     while 1:
@@ -151,7 +151,7 @@ if(TRAINING_SET == 2):
 if __name__ == '__main__':
     start_time = time()
     print('Training model...')
-    batch_size = 512 * 4 # / 232
+    batch_size = 512 * 8 # / 232
     # batch_size = 32
     model.fit(
         get_batch(),
