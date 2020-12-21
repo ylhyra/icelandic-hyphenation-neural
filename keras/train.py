@@ -84,7 +84,7 @@ class Metrics(keras.callbacks.Callback):
             if(corr < 0 and pred > 0):
                 if(pred > 0.35):
                     false_positives += 1
-                if(pred > MORPHEME_BREAK_INDICATOR_VALUE):
+                    # if(pred > MORPHEME_BREAK_INDICATOR_VALUE):
                     out = ''
                     for row in x_validation[index]:
                         out += int_to_char[np.argmax(row)]
@@ -92,13 +92,13 @@ class Metrics(keras.callbacks.Callback):
                         str(int(round(pred * 10))) + \
                         '\033[0m' + out[int(WINDOW_SIZE / 2):]
                     false_positives_printed.append(out)
-            elif(corr > 0 and pred < 0):
+            elif(corr > 0.35 and pred < 0.35):
                 false_negatives += 1
             if(corr > 0):
                 total_hyphened_points += 1
                 if pred > 0:
                     hyphen_points_found += 1
-                    if (abs(pred - corr) < 0.2):
+                    if (abs(pred - corr) < 0.23):
                         correct_hyphenation_type += 1
                     else:
                         incorrect_hyphenation_type += 1
@@ -151,7 +151,7 @@ if(TRAINING_SET == 2):
 if __name__ == '__main__':
     start_time = time()
     print('Training model...')
-    batch_size = 512 * 8 # / 232
+    batch_size = 512 * 8 * 2 # / 232
     # batch_size = 32
     model.fit(
         get_batch(),

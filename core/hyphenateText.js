@@ -12,8 +12,8 @@ const fullyIcelandicString = new RegExp(`^[${icelandic_letters}]+$`, 'i')
 // const spaces = ' \u00A0' /* Space and nbsp */
 
 
-const MIN_TO_COUNT_AS_MAJOR_HYPH = MAJOR_HYPHENATION_INDICATOR_VALUE - 0.2
-const MIN_TO_COUNT_AS_MINOR_HYPH = MINOR_HYPHENATION_INDICATOR_VALUE - 0.2
+const MIN_TO_COUNT_AS_MAJOR_HYPH = MAJOR_HYPHENATION_INDICATOR_VALUE - 0.225
+const MIN_TO_COUNT_AS_MINOR_HYPH = MINOR_HYPHENATION_INDICATOR_VALUE - 0.225
 
 
 /**

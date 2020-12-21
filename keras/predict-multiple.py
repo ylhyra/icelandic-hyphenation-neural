@@ -7,8 +7,9 @@ from config import *
 BATCH_SIZE = 10000
 count = 0
 to_write = ''
-f = open('list_tmp.txt')
-total_samples = sum(1 for line in open('list_tmp.txt'))
+f = open('list_tmp.txt', encoding="utf8", errors='ignore')
+total_samples = sum(1 for line in open('list_tmp.txt', encoding="utf8", errors='ignore'))
+
 words_in_memory = []
 to_predict = []
 current_index_in_prediction = 0

@@ -30,25 +30,40 @@ model = keras.models.Sequential()
 
 model.add(keras.layers.Conv1D(
     filters=20,
-    kernel_size=3,
+    kernel_size=3, # 3 letters
     activation='relu',
     input_shape=(WINDOW_SIZE, number_of_possible_letters)
 ))
 model.add(keras.layers.Conv1D(
     filters=30,
-    kernel_size=2,
+    kernel_size=2, # 4 letters
+    activation='relu',
+    input_shape=(WINDOW_SIZE, number_of_possible_letters),
+    # kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)),
+))
+model.add(keras.layers.Conv1D(
+    filters=800,
+    kernel_size=8, # 11 letters
+    activation='relu',
+    input_shape=(WINDOW_SIZE, number_of_possible_letters),
+    # kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)),
+))
+model.add(keras.layers.Conv1D(
+    filters=80,
+    kernel_size=1,
     activation='relu',
     input_shape=(WINDOW_SIZE, number_of_possible_letters),
     # kernel_regularizer=l1(0.01), bias_regularizer=l1(0.01)),
 ))
 model.add(keras.layers.Flatten())
 
+# model.add(keras.layers.Dense(800, activation='relu'))
 model.add(keras.layers.Dense(400, activation='relu'))
 model.add(keras.layers.Dense(400, activation='relu'))
+# model.add(keras.layers.Dense(100, activation='relu'))
 model.add(keras.layers.Dense(100, activation='relu'))
 model.add(keras.layers.Dense(100, activation='relu'))
-model.add(keras.layers.Dense(100, activation='relu'))
-model.add(keras.layers.Dense(10, activation='relu'))
+# model.add(keras.layers.Dense(10, activation='relu'))
 
 if __name__ == '__main__':
     model.summary()

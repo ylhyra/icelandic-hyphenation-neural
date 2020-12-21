@@ -73,6 +73,10 @@ const text = await IcelandicHyphenation.HyphenateText('Jökulá ófær', {
 - HyphenateDOM(element, options)
   - Adds hyphenation directly to element. Returns nothing.
 
+## Accuracy
+
+The model only splits words when it is reasonably sure that there should be a hyphenation. The odds of a given string containing a false positive hyphenation point is <0.2%, the odds of a word containing a false negative hyphenation point (not returning a hyphenation point where there should be one) is 15%. False negatives are most common in ambiguous words („torf-stunga“ vs. „torfs-tunga”).
+
 ## Usage notes
 
 - [Preventing hyphens from being copied](https://github.com/egilll/do-not-copy-hyphens#readme)
@@ -83,4 +87,6 @@ const text = await IcelandicHyphenation.HyphenateText('Jökulá ófær', {
 
 ## License
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+Code: [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Model: CC0 (public domain)
